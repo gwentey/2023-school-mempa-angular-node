@@ -1,0 +1,10 @@
+# Node artifact files
+node_modules/
+front/node_modules
+dist/
+
+# Log files
+*.log
+
+# JetBrains IDE
+.idea/
