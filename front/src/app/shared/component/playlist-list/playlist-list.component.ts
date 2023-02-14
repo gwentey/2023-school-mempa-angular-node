@@ -9,13 +9,13 @@ import { PlaylistListService } from '../../services/playlist-list.service';
 })
 export class PlaylistListComponent {
 
-  public playlist: IPlaylist[] = [];
+  public listePlaylist: IPlaylist[] = [];
 
   constructor(private playlistListService : PlaylistListService){}
 
   ngOnInit() {
     // récupération des playlists à partir du service injecté dans le constructeur
-    this.playlist = this.playlistListService.getPlaylist();
+    this.listePlaylist = this.playlistListService.getPlaylist();
   }
 
 }
