@@ -1,21 +1,20 @@
-<!-- Team -->
-<section class="team">
-    <div class="grid-xlarge">
-        <div class="row">
-            <article class="col-3 mb-3" *ngFor="let playlist of listePlaylist">
-                <a class="team__link" href="#" target="_blank">
-                    <div class="team__img-container">
-                        <figure class="team__img">
-                            <img class="absolute-bg" src="./assets/photoCouvertureAlbum/{{ playlist.photoCouverture }}" alt="" />
-                        </figure>
-                    </div>
-                    <div class="team__text">
-                        <h3 class="team__title">{{ playlist.nom }}
-                        </h3>
-                        <span class="team__position">{{ playlist.nomCreateur }}</span>
-                    </div>
-                </a>
-            </article>
-        </div>
+<!-- La liste des playlists -->
+<section class="playlist">
+    <div class="row">
+        <article class="col-3 mb-3" *ngFor="let playlist of listePlaylist">
+            <a class="playlist_lien" href="#" target="_blank">
+                <div class="playlist_img_container">
+                    <figure class="playlist_img">
+                        <img class="absolute-bg" src="./assets/photoCouvertureAlbum/{{ playlist.photoCouverture }}"
+                            alt="" />
+                    </figure>
+                </div>
+                <div class="playlist_text">
+                    <h3 class="playlist_title">{{ playlist.nom }}
+                    </h3>
+                    <span class="playlist_position">{{ playlist.nomCreateur }}</span>
+                </div>
+            </a>
+        </article>
     </div>
 </section>
