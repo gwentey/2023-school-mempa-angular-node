@@ -1,11 +1,21 @@
-<div class="row">
-        <div *ngFor="let playlist of listePlaylist" class="card me-3 mb-3 col-1" style="width: 10em;">
-            <img style="width: auto;"
-                src="https://edition-limitee.fr/images/0_0_0dady/metal_hurlant/octobre/Lujipeka-montagnes-russes-album-Vinyle-lp-edition-limitee-2021.jpg"
-                class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{ playlist.nom }}</h5>
-                <p class="card-text">{{ playlist.nomCreateur }}</p>
-            </div>
+<!-- Team -->
+<section class="team">
+    <div class="grid-xlarge">
+        <div class="row">
+            <article class="col-3 mb-3" *ngFor="let playlist of listePlaylist">
+                <a class="team__link" href="#" target="_blank">
+                    <div class="team__img-container">
+                        <figure class="team__img">
+                            <img class="absolute-bg" src="./assets/photoCouvertureAlbum/{{ playlist.photoCouverture }}" alt="" />
+                        </figure>
+                    </div>
+                    <div class="team__text">
+                        <h3 class="team__title">{{ playlist.nom }}
+                        </h3>
+                        <span class="team__position">{{ playlist.nomCreateur }}</span>
+                    </div>
+                </a>
+            </article>
         </div>
-</div>
+    </div>
+</section>
