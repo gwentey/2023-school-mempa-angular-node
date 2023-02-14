@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppComponent } from './app.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { AccueilComponent } from './accueil/accueil.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {RouterModule} from "@angular/router";
 import {HttpClientModule} from "@angular/common/http";
+
+import { AppComponent } from './app.component';
+import { AccueilComponent } from './accueil/accueil.component';
 import {CreerComponent} from "./creer/creer.component";
+import { NavbarComponent } from './shared/component/navbar/navbar.component';
+import { PlaylistListComponent } from './shared/component/playlist-list/playlist-list.component';
+
 
 const appRoutes = [
   {path: '', component: AccueilComponent},
@@ -20,6 +22,7 @@ const appRoutes = [
     NavbarComponent,
     AccueilComponent,
     CreerComponent,
+    PlaylistListComponent,
   ],
   imports: [
     BrowserModule,
