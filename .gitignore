@@ -11,3 +11,6 @@ dist/
 front/.angular/
 front/.editorconfig
 front/.vscode/
+
+#MAC
+.DS_Store
