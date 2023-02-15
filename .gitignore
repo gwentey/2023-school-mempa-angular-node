@@ -12,5 +12,6 @@ front/.angular/
 front/.editorconfig
 front/.vscode/
 
-#MAC
+# MAC
 .DS_Store
+front/.DS_Store
