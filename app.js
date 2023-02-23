@@ -1,6 +1,11 @@
 const express = require('express');
 const app = express();
 
+// systeme de variable d'environnement
+require('dotenv').config()
+
+
+
 app.all('*', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
