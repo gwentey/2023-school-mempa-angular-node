@@ -4,18 +4,15 @@ module.exports = class  Playlist{
     //Constructeur de la classe
     constructor() {
         this.listeMorceaux = [];
-        this.id = 0;
+        this.idMorceaux = 0;
     }
 
     //Pour ajouter un morceau
     ajouterMorceau(titre, nomArtiste){
-        this.listeMorceaux[this.id] = new Morceau(titre, nomArtiste);
-        this.id++;
-    }
-
-    //Pour ajouter un morceau
-    ajouterMorceau(titre, nomArtiste){
-        this.listeMorceaux[this.id] = new Morceau(titre, nomArtiste);
+        let m = new Morceau(titre, nomArtiste, this.idMorceaux);
+        this.listeMorceaux[this.idMorceaux] = m;
+        this.idMorceaux++;
+        return m;
     }
 
     //Pour récupérer un morceau à partir de son id
@@ -23,7 +20,7 @@ module.exports = class  Playlist{
         if(typeof this.listeMorceaux[id] === 'undefined'){
             return false;
         }
-        return this.listeMorceaux[this.id];
+        return this.listeMorceaux[this.idMorceaux];
     }
 
 }
