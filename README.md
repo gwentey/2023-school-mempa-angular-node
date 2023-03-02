@@ -2,7 +2,7 @@ Pour le Back :
 
 N'oubliez pas de faire : npm install
 
-Puis pour lancer : node app.js
+Puis pour lancer : nodemon app.js
 
 Ensuite l'api est disponible ici : http://localhost:3000/compte/
 
