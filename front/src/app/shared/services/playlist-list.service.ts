@@ -10,14 +10,16 @@ import { IPlaylist } from '../models/playlist';
 
 export class PlaylistListService {
 
-  public playlist: any; 
+  public playlist: any;
 
   private readonly PLAYLIST_API_URL = "https://localhost:3000/";
 
   constructor(private http: HttpClient) { }
 
-  public creerPlayList(nomPlaylist : String, photoCouverture : String, 
-    nomCreateur : String, styleMusique : String, ): Observable<IPlaylist> {
+  
+  public creerPlayList(nomPlaylist: String, photoCouverture: String,
+    nomCreateur: String, styleMusique: String,): Observable<IPlaylist> {
+
     this.playlist = {
       nomPlaylist: nomPlaylist,
       photoCouverture: photoCouverture,
@@ -31,10 +33,10 @@ export class PlaylistListService {
 
   }
 
-/**
- * Fonction temporaire qui simule la reponse en JSON du back (pour faire des tests)
- * @returns IPlaylist[] : la liste des hotels 
- */
+  /**
+   * Fonction temporaire qui simule la reponse en JSON du back (pour faire des tests)
+   * @returns IPlaylist[] : la liste des hotels 
+   */
   public getPlaylist(): IPlaylist[] {
     return [
       {
@@ -88,7 +90,7 @@ export class PlaylistListService {
           titre: "Still Corners",
           nomArtiste: "The Trip"
         }]
-      },{
+      }, {
         id: 4,
         nom: "Hip-Hop Picks",
         nomCreateur: "Lulu",
@@ -97,16 +99,16 @@ export class PlaylistListService {
         contributeurs: "Nekfeu",
         style: "Hip-Hop",
         morceauMusiqueListe: [{
-        id: 6,
-        titre: "On Verra",
-        nomArtiste: "Nekfeu"
+          id: 6,
+          titre: "On Verra",
+          nomArtiste: "Nekfeu"
         }, {
-        id: 7,
-        titre: "L'Homme de l'Ombre",
-        nomArtiste: "Georgio"
+          id: 7,
+          titre: "L'Homme de l'Ombre",
+          nomArtiste: "Georgio"
         }]
-        },
-        {
+      },
+      {
         id: 5,
         nom: "Sad life",
         nomCreateur: "Gaby",
@@ -115,16 +117,16 @@ export class PlaylistListService {
         contributeurs: "La mort",
         style: "Rock",
         morceauMusiqueListe: [{
-        id: 8,
-        titre: "Hey Jude",
-        nomArtiste: "The Beatles"
+          id: 8,
+          titre: "Hey Jude",
+          nomArtiste: "The Beatles"
         }, {
-        id: 9,
-        titre: "Sweet Child O' Mine",
-        nomArtiste: "Guns N' Roses"
+          id: 9,
+          titre: "Sweet Child O' Mine",
+          nomArtiste: "Guns N' Roses"
         }]
-        },
-        {
+      },
+      {
         id: 6,
         nom: "Année 80'",
         nomCreateur: "Antho",
@@ -133,15 +135,15 @@ export class PlaylistListService {
         contributeurs: "Daft Punk",
         style: "Electronic",
         morceauMusiqueListe: [{
-        id: 10,
-        titre: "Get Lucky",
-        nomArtiste: "Daft Punk"
+          id: 10,
+          titre: "Get Lucky",
+          nomArtiste: "Daft Punk"
         }, {
-        id: 11,
-        titre: "Midnight City",
-        nomArtiste: "M83"
+          id: 11,
+          titre: "Midnight City",
+          nomArtiste: "M83"
         }]
-        }
+      }
     ]
   }
 
