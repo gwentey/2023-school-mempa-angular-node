@@ -13,7 +13,7 @@ import { CreerPlaylistComponent } from './creer-playlist/creer-playlist.componen
 
 const appRoutes = [
   {path: '', component: AccueilComponent},
-  {path: 'creePlayList', component: CreerPlaylistComponent},
+  {path: 'creer', component: CreerPlaylistComponent},
 ]
 
 @NgModule({
