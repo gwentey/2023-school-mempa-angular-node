@@ -28,7 +28,7 @@ export class PlaylistListService {
       styleMusique: styleMusique
     }
 
-    return this.http.post<any>(this.PLAYLIST_API_URL_HTTPS + "/creerplaylist/", this.playlist).pipe(
+    return this.http.post<any>(this.PLAYLIST_API_URL_HTTP + "creerplaylist/", this.playlist).pipe(
       catchError(this.handleError)
     );
 
