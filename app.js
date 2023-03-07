@@ -48,3 +48,19 @@ app.put('/ajoutermorceau/:idplaylist/:titremorceau/:nomartiste', function (req, 
     morceau = p.ajouterMorceau(req.params.titremorceau, req.params.nomartiste);
     res.json(p);
 });
+
+//Route GET pour récupérer toutes les playlists
+app.get('/getallplaylists', function(req, res){
+    res.json(playlists);
+});
+
+//Route GET pour récupérer une playlist avec son id (@Params : idplaylist)
+
+app.get('/getplaylistbyid', function (req, res){
+    let p = playlists.at(req.params.idplaylist);
+    if(typeof p === 'undefined'){
+        res.status(404).json({error:"La playlist n'existe pas"});
+        return false;
+    }
+    res.json(p);
+});
