@@ -1,4 +1,6 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, Observable, throwError } from 'rxjs';
 import { IPlaylist } from '../models/playlist';
 
 @Injectable({
@@ -8,7 +10,26 @@ import { IPlaylist } from '../models/playlist';
 
 export class PlaylistListService {
 
-  constructor() { }
+  public playlist: any; 
+
+  private readonly PLAYLIST_API_URL = "https://localhost:3000/";
+
+  constructor(private http: HttpClient) { }
+
+  public creerPlayList(nomPlaylist : String, photoCouverture : String, 
+    nomCreateur : String, styleMusique : String, ): Observable<IPlaylist> {
+    this.playlist = {
+      nomPlaylist: nomPlaylist,
+      photoCouverture: photoCouverture,
+      nomCreateur: nomCreateur,
+      styleMusique: styleMusique
+    }
+
+    return this.http.post<any>(this.PLAYLIST_API_URL + "/creerplaylist/", this.playlist).pipe(
+      catchError(this.handleError)
+    );
+
+  }
 
 /**
  * Fonction temporaire qui simule la reponse en JSON du back (pour faire des tests)
@@ -122,6 +143,20 @@ export class PlaylistListService {
         }]
         }
     ]
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
 
