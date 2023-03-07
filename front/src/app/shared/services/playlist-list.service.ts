@@ -12,7 +12,8 @@ export class PlaylistListService {
 
   public playlist: any;
 
-  private readonly PLAYLIST_API_URL = "https://localhost:3000/";
+  private readonly PLAYLIST_API_URL_HTTPS = "https://localhost:3000/";
+  private readonly PLAYLIST_API_URL_HTTP = "http://localhost:3000/";
 
   constructor(private http: HttpClient) { }
 
@@ -27,7 +28,7 @@ export class PlaylistListService {
       styleMusique: styleMusique
     }
 
-    return this.http.post<any>(this.PLAYLIST_API_URL + "/creerplaylist/", this.playlist).pipe(
+    return this.http.post<any>(this.PLAYLIST_API_URL_HTTPS + "/creerplaylist/", this.playlist).pipe(
       catchError(this.handleError)
     );
 
@@ -35,116 +36,14 @@ export class PlaylistListService {
 
   /**
    * Fonction temporaire qui simule la reponse en JSON du back (pour faire des tests)
-   * @returns IPlaylist[] : la liste des hotels 
+   * @returns IPlaylist[] : la liste des playlists
    */
-  public getPlaylist(): IPlaylist[] {
-    return [
-      {
-        id: 1,
-        nom: "Daily Mix",
-        photoCouverture: "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/cool-music-album-cover-design-template-3324b2b5c69bb9a3cfaed14c71f24ca8_screen.jpg?ts=1572456482",
-        nomCreateur: "Antho",
-        nombreClics: 43,
-        contributeurs: "Lujipeka",
-        style: "French Rap",
-        morceauMusiqueListe: [{
-          id: 1,
-          titre: "Pas à ma place",
-          nomArtiste: "Lujipeka"
-        }, {
-          id: 2,
-          titre: "Metaverse",
-          nomArtiste: "Lujipeka"
-        }]
-      }, {
-        id: 2,
-        nom: "Noel 2023",
-        photoCouverture: "http://cdn.shopify.com/s/files/1/0337/7931/8828/articles/noel-2023.png?v=1673806208",
-        nomCreateur: "Lulu",
-        nombreClics: 98,
-        contributeurs: "Le père noel",
-        style: "Pop",
-        morceauMusiqueListe: [{
-          id: 3,
-          titre: "All I Want For Christmas Is You",
-          nomArtiste: "Mariah Carey"
-        }, {
-          id: 4,
-          titre: "Have Yourself a Merry Little Christmas",
-          nomArtiste: "Michael Bublé"
-        }]
-      }, {
-        id: 3,
-        nom: "Summer 2023",
-        nomCreateur: "Max",
-        photoCouverture: "https://i.scdn.co/image/ab67616d0000b273c8d8414189a18a0a57be2d6a",
-        nombreClics: 65,
-        contributeurs: "DavLaMenace",
-        style: "Pop",
-        morceauMusiqueListe: [{
-          id: 4,
-          titre: "Summer",
-          nomArtiste: "Calvin Harris"
-        }, {
-          id: 5,
-          titre: "Still Corners",
-          nomArtiste: "The Trip"
-        }]
-      }, {
-        id: 4,
-        nom: "Hip-Hop Picks",
-        nomCreateur: "Lulu",
-        photoCouverture: "https://img.cdn-pictorem.com/uploads/collection/Q/QJ3CCL2SKM/900_DK-Artwork_asatronaut%20hiphop.jpg",
-        nombreClics: 25,
-        contributeurs: "Nekfeu",
-        style: "Hip-Hop",
-        morceauMusiqueListe: [{
-          id: 6,
-          titre: "On Verra",
-          nomArtiste: "Nekfeu"
-        }, {
-          id: 7,
-          titre: "L'Homme de l'Ombre",
-          nomArtiste: "Georgio"
-        }]
-      },
-      {
-        id: 5,
-        nom: "Sad life",
-        nomCreateur: "Gaby",
-        photoCouverture: "https://ideas.ted.com/wp-content/uploads/sites/3/2021/11/FINAL_DepressionAndTrauma.jpg",
-        nombreClics: 37,
-        contributeurs: "La mort",
-        style: "Rock",
-        morceauMusiqueListe: [{
-          id: 8,
-          titre: "Hey Jude",
-          nomArtiste: "The Beatles"
-        }, {
-          id: 9,
-          titre: "Sweet Child O' Mine",
-          nomArtiste: "Guns N' Roses"
-        }]
-      },
-      {
-        id: 6,
-        nom: "Année 80'",
-        nomCreateur: "Antho",
-        photoCouverture: "https://i1.sndcdn.com/artworks-000316645806-5bbme8-t500x500.jpg",
-        nombreClics: 51,
-        contributeurs: "Daft Punk",
-        style: "Electronic",
-        morceauMusiqueListe: [{
-          id: 10,
-          titre: "Get Lucky",
-          nomArtiste: "Daft Punk"
-        }, {
-          id: 11,
-          titre: "Midnight City",
-          nomArtiste: "M83"
-        }]
-      }
-    ]
+  public getPlaylist(): Observable<any> {
+    return this.http.get<any>(this.PLAYLIST_API_URL_HTTP + "getallplaylists");
+  }
+
+  public creerTests(){
+    return this.http.get<any>(this.PLAYLIST_API_URL_HTTP + "createtestvalues");
   }
 
   private handleError(error: HttpErrorResponse) {
