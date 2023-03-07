@@ -1,14 +1,33 @@
 <div class="container">
-    <div class="justify-content-center">
-      <h1 class="ms-3">Crée une playlist</h1>
-      <div class="mt-5">
+  <div class="justify-content-center">
+    <h1 class="ms-3">Crée une playlist</h1>
 
+    <div class="mt-5">
 
+      <form class="text-center needs-validation" novalidate (ngSubmit)="creerPlayList()"
+        [formGroup]="playListCreationForm">
 
+        <div class="form-floating mb-3">
+          <input formControlName="nomPlayList" type="name" class="form-control" placeholder="Nom playlist">
+          <label for="floatingInput">Nom</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input formControlName="urlCouverture" type="name" class="form-control" placeholder="Nom playlist">
+          <label for="floatingInput">Url de l'image</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input formControlName="nomCreateur" type="name" class="form-control" placeholder="Nom playlist">
+          <label for="floatingInput">Nom créateur</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input formControlName="nomStyle" type="name" class="form-control" placeholder="Nom playlist">
+          <label for="floatingInput">Style</label>
+        </div>
 
+        <button type="submit" class="btn btn-success btn-lg">Créer la playlist</button>
 
-
+      </form>
     </div>
-  
-    </div>
+    {{ playListCreationForm.value | json }}
   </div>
+</div>
