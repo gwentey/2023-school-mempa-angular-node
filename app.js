@@ -30,8 +30,8 @@ app.listen(3000, function () {
 
 // Route POST pour créer une playlist
 app.post('/creerplaylist/', function (req, res){
-    let id = playlists.push(new Playlist())
-    res.json({id : id});
+    let id = playlists.push(new Playlist(req.body.nomPlaylist, req.body.nomCreateur, req.body.styleMusique))
+    res.json({id : id, playlist : playlists});
 });
 
 // Route PUT pour ajouter un morceau à une playlist
