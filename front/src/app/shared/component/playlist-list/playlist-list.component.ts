@@ -15,7 +15,19 @@ export class PlaylistListComponent {
 
   ngOnInit() {
     // récupération des playlists à partir du service injecté dans le constructeur
-    this.listePlaylist = this.playlistListService.getPlaylist();
+    this.playlistListService.getPlaylist().subscribe(data=>{
+      this.listePlaylist = data;
+      if(this.listePlaylist.length===0){
+        console.log(this.listePlaylist.length);
+        this.playlistListService.creerTests().subscribe();
+        this.playlistListService.getPlaylist().subscribe(data=>{
+          this.listePlaylist = data;
+        });
+      }
+    });
+
+
+
   }
 
 }
