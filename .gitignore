@@ -15,3 +15,6 @@ front/.vscode/
 # MAC
 .DS_Store
 front/.DS_Store
+
+# Environnement variable
+.env
