@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, tap, throwError } from 'rxjs';
 import { IPlaylist } from '../models/playlist';
 
 @Injectable({
@@ -10,18 +10,43 @@ import { IPlaylist } from '../models/playlist';
 
 export class PlaylistListService {
 
-  public playlist: any;
+  public playlist!: IPlaylist;
 
   private readonly PLAYLIST_API_URL_HTTPS = "https://localhost:3000/";
   private readonly PLAYLIST_API_URL_HTTP = "http://localhost:3000/";
 
   constructor(private http: HttpClient) { }
 
+
+  // permet d'obtenir la playlist associé à l'id
+  public getPlayListById(id : Number) : Observable<IPlaylist> {
+    return this.http.get<IPlaylist>(this.PLAYLIST_API_URL_HTTP + "playlist/" + id).pipe(
+      map((json: any) => {
+        const playlist: IPlaylist = {
+          nom: json.nomPlaylist,
+          photoCouverture: json.photoCouverture,
+          nomCreateur: json.nomCreateur,
+          nombreClics: json.nombreClics,
+          contributeurs: json.nomsContributeurs,
+          style: json.styleMusique,
+          morceauMusiqueListe: json.listeMorceaux.map((m: any) => ({
+            id: m.id,
+            titre: m.titre,
+            nomArtiste: m.nomArtiste,
+            urlMusique: m.urlMusique,
+            duree: m.duree
+          }))
+        };
+        return playlist;
+      }),
+      catchError(this.handleError),
+    )
+  }
   
   public creerPlayList(nomPlaylist: String, photoCouverture: String,
     nomCreateur: String, styleMusique: String,): Observable<IPlaylist> {
 
-    this.playlist = {
+    const playlist = {
       nomPlaylist: nomPlaylist,
       photoCouverture: photoCouverture,
       nomCreateur: nomCreateur,
@@ -39,11 +64,16 @@ export class PlaylistListService {
    * @returns IPlaylist[] : la liste des playlists
    */
   public getPlaylist(): Observable<any> {
-    return this.http.get<any>(this.PLAYLIST_API_URL_HTTP + "getallplaylists");
+    return this.http.get<any>(this.PLAYLIST_API_URL_HTTP + "getallplaylists").pipe(
+      tap(lesPlaylists  => console.log(lesPlaylists)),
+      catchError(this.handleError)
+    )
   }
 
   public creerTests(){
-    return this.http.get<any>(this.PLAYLIST_API_URL_HTTP + "createtestvalues");
+    return this.http.get<any>(this.PLAYLIST_API_URL_HTTP + "createtestvalues").pipe(
+      catchError(this.handleError)
+    )
   }
 
   private handleError(error: HttpErrorResponse) {

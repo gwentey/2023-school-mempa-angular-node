@@ -1,8 +1,8 @@
 <!-- La liste des playlists -->
 <section class="playlist">
     <div class="row">
-        <article class="col-3 mb-3" *ngFor="let playlist of listePlaylist">
-            <a class="playlist_lien" href="#" target="_blank">
+        <article class="col-3 mb-3" *ngFor="let playlist of listePlaylist, let i=index">
+            <a class="playlist_lien" routerLink="voir/{{ i }}">
                 <div class="playlist_img_container">
                     <figure class="playlist_img">
                         <img class="absolute-bg" src="{{ playlist.photoCouverture }}"

@@ -10,11 +10,15 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { NavbarComponent } from './shared/component/navbar/navbar.component';
 import { PlaylistListComponent } from './shared/component/playlist-list/playlist-list.component';
 import { CreerPlaylistComponent } from './creer-playlist/creer-playlist.component';
+import { PlaylistVoirComponent } from './playlist-voir/playlist-voir.component';
 
 
 const appRoutes = [
-  {path: '', component: AccueilComponent},
+  {path: '', 
+  component: AccueilComponent,
+  },
   {path: 'creer', component: CreerPlaylistComponent},
+  {path: 'voir/:id', component: PlaylistVoirComponent}
 ]
 
 @NgModule({
@@ -24,6 +28,7 @@ const appRoutes = [
     AccueilComponent,
     PlaylistListComponent,
     CreerPlaylistComponent,
+    PlaylistVoirComponent,
     
   ],
   imports: [
