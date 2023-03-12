@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { IPlaylist } from '../models/playlist';
 
 @Injectable({
@@ -39,11 +39,16 @@ export class PlaylistListService {
    * @returns IPlaylist[] : la liste des playlists
    */
   public getPlaylist(): Observable<any> {
-    return this.http.get<any>(this.PLAYLIST_API_URL_HTTP + "getallplaylists");
+    return this.http.get<any>(this.PLAYLIST_API_URL_HTTP + "getallplaylists").pipe(
+      tap(lesPlaylists  => console.log(lesPlaylists)),
+      catchError(this.handleError)
+    )
   }
 
   public creerTests(){
-    return this.http.get<any>(this.PLAYLIST_API_URL_HTTP + "createtestvalues");
+    return this.http.get<any>(this.PLAYLIST_API_URL_HTTP + "createtestvalues").pipe(
+      catchError(this.handleError)
+    )
   }
 
   private handleError(error: HttpErrorResponse) {

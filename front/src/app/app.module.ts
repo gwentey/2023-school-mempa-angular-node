@@ -10,6 +10,7 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { NavbarComponent } from './shared/component/navbar/navbar.component';
 import { PlaylistListComponent } from './shared/component/playlist-list/playlist-list.component';
 import { CreerPlaylistComponent } from './creer-playlist/creer-playlist.component';
+import { PlaylistViewComponent } from './playlist-view/playlist-view.component';
 
 
 const appRoutes = [
@@ -24,6 +25,7 @@ const appRoutes = [
     AccueilComponent,
     PlaylistListComponent,
     CreerPlaylistComponent,
+    PlaylistViewComponent,
     
   ],
   imports: [
