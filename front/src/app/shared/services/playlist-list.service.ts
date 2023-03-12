@@ -40,7 +40,6 @@ export class PlaylistListService {
    */
   public getPlaylist(): Observable<any> {
     return this.http.get<any>(this.PLAYLIST_API_URL_HTTP + "getallplaylists").pipe(
-      tap(lesPlaylists  => console.log(lesPlaylists)),
       catchError(this.handleError)
     )
   }

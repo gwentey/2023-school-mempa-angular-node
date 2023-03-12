@@ -14,7 +14,9 @@ import { PlaylistViewComponent } from './playlist-view/playlist-view.component';
 
 
 const appRoutes = [
-  {path: '', component: AccueilComponent},
+  {path: '', 
+  component: AccueilComponent,
+  },
   {path: 'creer', component: CreerPlaylistComponent},
 ]
 
