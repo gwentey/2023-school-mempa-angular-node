@@ -11,20 +11,21 @@ export class PlaylistListComponent {
 
   public listePlaylist: IPlaylist[] = [];
 
-  constructor(private playlistListService : PlaylistListService){}
+  constructor(private playlistListService: PlaylistListService) { }
 
   ngOnInit() {
     // récupération des playlists à partir du service injecté dans le constructeur
-    this.playlistListService.getPlaylist().subscribe(data=>{
-      this.listePlaylist = data;
-      if(this.listePlaylist.length===0){
-        console.log(this.listePlaylist.length);
-        this.playlistListService.creerTests().subscribe();
-        this.playlistListService.getPlaylist().subscribe(data=>{
-          this.listePlaylist = data;
-        });
-      }
-    });
+    this.playlistListService.getPlaylist().subscribe({
+      next: lesPlaylists => {
+
+        // si la liste est vide on lance la création
+        if (lesPlaylists.length === 0) {
+          this.playlistListService.creerTests().subscribe();
+        }
+        this.listePlaylist = lesPlaylists
+      },
+      error: err => { console.log("Erreur : " + err) }
+    })
 
 
 

@@ -66,7 +66,7 @@ app.get('/getplaylistbyid', function (req, res) {
 });
 
 app.get('/createtestvalues', function (req, res) {
-    let p = new Playlist("Daily Mix", "Antho", "French Rap", "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/cool-music-album-cover-design-template-3324b2b5c69bb9a3cfaed14c71f24ca8_screen.jpg?ts=1572456482");
+    let p = new Playlist("Daily Mix", "Antho", "French Rap", "https://static.fnac-static.com/multimedia/Images/FR/NR/fb/15/d2/13768187/1540-1/tsp20210831115225/Montagnes-Rues.jpg");
     p.ajouterMorceau("Pas à ma place", "Lujipeka");
     p.ajouterMorceau("Metaverse", "Lujipeka");
     playlists.push(p);
