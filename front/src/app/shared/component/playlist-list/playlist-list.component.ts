@@ -92,15 +92,15 @@ function compareNbClics(a: IPlaylist, b:IPlaylist){
   }
   if(a.nombreClics>b.nombreClics){
     if(isSortByNbClics){
-      return -1;
-    }else{
       return 1;
+    }else{
+      return -1;
     }
   }else{
     if(isSortByNbClics){
-      return 1;
-    }else{
       return -1;
+    }else{
+      return 1;
     }
   }
 }

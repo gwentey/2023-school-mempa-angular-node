@@ -53,7 +53,7 @@ export class CreerPlaylistComponent {
       if (this.playListCreationForm.dirty) {
         console.log("to");
 
-        this.playListService.creerPlayList(this.playListCreationForm.value.nomPlayList, 
+        this.playListService.creerPlayList(this.playListCreationForm.value.nomPlayList,
           this.playListCreationForm.value.urlCouverture, this.playListCreationForm.value.nomCreateur,
           this.playListCreationForm.value.nomStyle).subscribe();
 
