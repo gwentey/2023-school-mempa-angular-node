@@ -19,7 +19,11 @@ export class PlaylistVoirComponent implements OnInit{
   ngOnInit() {
 
     this.playlistListService.getPlayListById(Number(this.route.snapshot.paramMap.get('id'))).subscribe({
-      next: playlist => {this.playlist = playlist; console.log(playlist)},
+      next: playlist => {
+        this.playlist = playlist;
+        this.playlist.nombreClics++;
+        this.playlistListService.ajouterClic(Number(this.route.snapshot.paramMap.get('id'))).subscribe();
+      },
       error: err => console.log(err)
     });
 
