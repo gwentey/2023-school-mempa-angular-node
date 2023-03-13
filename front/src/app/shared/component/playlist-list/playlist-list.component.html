@@ -4,10 +4,9 @@
     <div class="row">
       <div class="float-end">
         <div class="text-white"><p class="">Trier : </p></div>
-        <img class="mx-2 " style="width: 25px; filter: invert(100%); cursor: pointer" src="./assets/icon/robinet.png">
-        <img class="mx-2 " style="width: 25px; filter: invert(100%); cursor: pointer"
-             src="./assets/icon/categories.png">
-        <img class="mx-2" style="width: 25px; filter: invert(0%); cursor: pointer" src="./assets/icon/click.png">
+        <img class="mx-2" (click)="trierAlphabetique()" style="width: 25px; filter: invert(100%); cursor: pointer" src="./assets/icon/trier.png">
+        <img class="mx-2" (click)="trierAlphabetiqueStyle()" style="width: 25px; filter: invert(100%); cursor: pointer" src="./assets/icon/categories.png">
+        <img class="mx-2" (click)="trierNombreClics()" style="width: 25px; filter: invert(0%); cursor: pointer" src="./assets/icon/click.png">
 
       </div>
 
@@ -25,9 +24,9 @@
           </figure>
         </div>
         <div class="playlist_text">
-          <h3 class="playlist_title">{{ playlist.nom }}
+          <h3 class="playlist_title">{{ playlist.nomPlaylist }}
           </h3>
-          <span class="playlist_position">{{ playlist.nomCreateur }}</span>
+          <span class="playlist_position">{{ playlist.nomCreateur }} | {{playlist.styleMusique}} | {{playlist.nombreClics}}</span>
         </div>
       </a>
     </article>

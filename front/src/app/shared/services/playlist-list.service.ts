@@ -23,12 +23,12 @@ export class PlaylistListService {
     return this.http.get<IPlaylist>(this.PLAYLIST_API_URL_HTTP + "playlist/" + id).pipe(
       map((json: any) => {
         const playlist: IPlaylist = {
-          nom: json.nomPlaylist,
+          nomPlaylist: json.nomPlaylist,
           photoCouverture: json.photoCouverture,
           nomCreateur: json.nomCreateur,
           nombreClics: json.nombreClics,
           contributeurs: json.nomsContributeurs,
-          style: json.styleMusique,
+          styleMusique: json.styleMusique,
           morceauMusiqueListe: json.listeMorceaux.map((m: any) => ({
             id: m.id,
             titre: m.titre,
@@ -42,7 +42,7 @@ export class PlaylistListService {
       catchError(this.handleError),
     )
   }
-  
+
   public creerPlayList(nomPlaylist: String, photoCouverture: String,
     nomCreateur: String, styleMusique: String,): Observable<IPlaylist> {
 

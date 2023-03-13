@@ -12,8 +12,8 @@ import { PlaylistListService } from '../shared/services/playlist-list.service';
 })
 export class PlaylistVoirComponent implements OnInit{
 
-  public playlist: IPlaylist = {nom: "",photoCouverture: "",nomCreateur: "",nombreClics: 0,contributeurs: [],style: "",morceauMusiqueListe : []};
-  
+  public playlist: IPlaylist = {nomPlaylist: "",photoCouverture: "",nomCreateur: "",nombreClics: 0,contributeurs: [],styleMusique: "",morceauMusiqueListe : []};
+
   constructor(private playlistListService : PlaylistListService, private route: ActivatedRoute){}
 
   ngOnInit() {
@@ -22,9 +22,9 @@ export class PlaylistVoirComponent implements OnInit{
       next: playlist => {this.playlist = playlist; console.log(playlist)},
       error: err => console.log(err)
     });
-    
+
   }
 
-  
+
 
 }

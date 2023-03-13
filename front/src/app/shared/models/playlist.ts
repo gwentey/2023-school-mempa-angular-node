@@ -1,12 +1,12 @@
 import { IMorceauMusique } from "./morceau-musique";
 
 export interface IPlaylist {
-    nom: string;
+    nomPlaylist: string;
     photoCouverture: string;
     nomCreateur: string;
     nombreClics: number;
     contributeurs: string[];
-    style: string;
+    styleMusique: string;
     morceauMusiqueListe : IMorceauMusique[];
 
 
