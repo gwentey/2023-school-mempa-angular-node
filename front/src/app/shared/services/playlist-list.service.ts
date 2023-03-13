@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
 import { IPlaylist } from '../models/playlist';
@@ -20,7 +20,8 @@ export class PlaylistListService {
 
   // permet d'obtenir la playlist associé à l'id
   public getPlayListById(id : Number) : Observable<IPlaylist> {
-    return this.http.get<IPlaylist>(this.PLAYLIST_API_URL_HTTP + "playlist/" + id).pipe(
+    let queryParams = new HttpParams().set("idplaylist", id.toString());
+    return this.http.get<IPlaylist>(this.PLAYLIST_API_URL_HTTP + "getplaylistbyid/", {params:queryParams}).pipe(
       map((json: any) => {
         const playlist: IPlaylist = {
           nomPlaylist: json.nomPlaylist,
@@ -41,6 +42,14 @@ export class PlaylistListService {
       }),
       catchError(this.handleError),
     )
+  }
+
+  public ajouterClic(idPlaylist:number){
+    let queryParams = new HttpParams().set("idplaylist", idPlaylist.toString());
+
+    return this.http.get<any>(this.PLAYLIST_API_URL_HTTP + "ajouterclic/", {params:queryParams}).pipe(
+      catchError(this.handleError)
+    );
   }
 
   public creerPlayList(nomPlaylist: String, photoCouverture: String,

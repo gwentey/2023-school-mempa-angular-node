@@ -87,7 +87,7 @@ function compareAlpha(a: IPlaylist, b:IPlaylist){
 }
 
 function compareNbClics(a: IPlaylist, b:IPlaylist){
-  if(a.nombreClics===undefined || a.nombreClics===0){
+  if(a.nombreClics===undefined){
     return 0;
   }
   if(a.nombreClics>b.nombreClics){

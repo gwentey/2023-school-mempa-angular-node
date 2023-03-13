@@ -49,6 +49,18 @@ app.put('/ajoutermorceau/:idplaylist/:titremorceau/:nomartiste', function (req, 
     res.json(p);
 });
 
+//Route GET pour ajouter un clic à une playlist
+app.get('/ajouterclic/', function (req, res){
+    console.log(req.query.idplaylist)
+    if(req.query.idplaylist==='undefined'){
+        res.status(400).json({error: 'Il faut préciser les paramètres.'});
+        return false;
+    }
+    let p = playlists.at(req.query.idplaylist);
+    p.nombreClics++;
+    res.json({nombreClics:p.nombreClics});
+});
+
 //Route GET pour récupérer toutes les playlists
 app.get('/getallplaylists', function (req, res) {
     res.json(playlists);
@@ -57,7 +69,8 @@ app.get('/getallplaylists', function (req, res) {
 //Route GET pour récupérer une playlist avec son id (@Params : idplaylist)
 
 app.get('/getplaylistbyid', function (req, res) {
-    let p = playlists.at(req.params.idplaylist);
+    console.log(req.query.idplaylist);
+    let p = playlists.at(req.query.idplaylist);
     if (typeof p === 'undefined') {
         res.status(404).json({error: "La playlist n'existe pas"});
         return false;
