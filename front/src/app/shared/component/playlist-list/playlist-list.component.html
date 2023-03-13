@@ -1,20 +1,35 @@
 <!-- La liste des playlists -->
 <section class="playlist">
+  <div class="container mb-5">
     <div class="row">
-        <article class="col-3 mb-3" *ngFor="let playlist of listePlaylist, let i=index">
-            <a class="playlist_lien" routerLink="voir/{{ i }}">
-                <div class="playlist_img_container">
-                    <figure class="playlist_img">
-                        <img class="absolute-bg" src="{{ playlist.photoCouverture }}"
-                            alt="" />
-                    </figure>
-                </div>
-                <div class="playlist_text">
-                    <h3 class="playlist_title">{{ playlist.nom }}
-                    </h3>
-                    <span class="playlist_position">{{ playlist.nomCreateur }}</span>
-                </div>
-            </a>
-        </article>
+      <div class="float-end">
+        <div class="text-white"><p class="">Trier : </p></div>
+        <img class="mx-2 " style="width: 25px; filter: invert(100%); cursor: pointer" src="./assets/icon/robinet.png">
+        <img class="mx-2 " style="width: 25px; filter: invert(100%); cursor: pointer"
+             src="./assets/icon/categories.png">
+        <img class="mx-2" style="width: 25px; filter: invert(0%); cursor: pointer" src="./assets/icon/click.png">
+
+      </div>
+
     </div>
+
+
+  </div>
+  <div class="row">
+    <article class="col-3 mb-3" *ngFor="let playlist of listePlaylist, let i=index">
+      <a class="playlist_lien" routerLink="voir/{{ i }}">
+        <div class="playlist_img_container">
+          <figure class="playlist_img">
+            <img class="absolute-bg" src="{{ playlist.photoCouverture }}"
+                 alt=""/>
+          </figure>
+        </div>
+        <div class="playlist_text">
+          <h3 class="playlist_title">{{ playlist.nom }}
+          </h3>
+          <span class="playlist_position">{{ playlist.nomCreateur }}</span>
+        </div>
+      </a>
+    </article>
+  </div>
 </section>
