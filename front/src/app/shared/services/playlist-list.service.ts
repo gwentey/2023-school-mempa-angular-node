@@ -57,6 +57,17 @@ export class PlaylistListService {
     );
   }
   
+  public modifierPlayList(idPlaylist: number, nomPlaylist: string, photoCouverture: string, styleMusique: string): Observable<IPlaylist> {
+    const playlist = {
+      nomPlaylist: nomPlaylist,
+      photoCouverture: photoCouverture,
+      styleMusique: styleMusique
+    };
+    return this.http.put<IPlaylist>(this.PLAYLIST_API_URL_HTTP + "modifierplaylist/" + idPlaylist, playlist)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
   public ajouterClic(idPlaylist:number){
     let queryParams = new HttpParams().set("idPlaylist", idPlaylist.toString());

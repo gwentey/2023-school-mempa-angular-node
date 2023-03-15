@@ -100,6 +100,26 @@ app.delete('/deleteplaylistmorceau', function (req, res) {
 });
 
 
+// Route PUT pour modifier une playlist
+app.put('/modifierplaylist/:id', function (req, res) {
+    const playlistId = req.params.id;
+    const playlist = playlists.find(p => p.idPlaylist == playlistId);
+    if (playlist) {
+        if (req.body.nomPlaylist) {
+            playlist.nomPlaylist = req.body.nomPlaylist;
+        }
+        if (req.body.styleMusique) {
+            playlist.styleMusique = req.body.styleMusique;
+        }
+        if (req.body.photoCouverture) {
+            playlist.photoCouverture = req.body.photoCouverture;
+        }
+        res.json(playlist);
+    } else {
+        res.status(404).json({ error: "La playlist n'existe pas" });
+    }
+});
+
 
 
 //Route GET pour récupérer les musiques d'une playlist

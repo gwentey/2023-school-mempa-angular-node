@@ -121,6 +121,8 @@ export class PlaylistVoirComponent implements OnInit {
     }
   }
 
+  
+
   actualiserLaPlaylist(): void {
     this.playlistListService.getPlayListById(Number(this.route.snapshot.paramMap.get('id'))).subscribe({
       next: playlist => {
@@ -134,9 +136,17 @@ export class PlaylistVoirComponent implements OnInit {
   }
 
   modificationDeLaPlaylist(){
+    if (this.modifierPlaylist.valid) {
+      if (this.modifierPlaylist.dirty) {
+        this.playlistListService.modifierPlayList(this.playlist.idPlaylist,
+          this.modifierPlaylist.value.nomPlaylist,
+          this.modifierPlaylist.value.urlCouverture,
+          this.modifierPlaylist.value.stylePlaylist).subscribe();
 
+          this.actualiserLaPlaylist();
+      }
+    }
   }
-
 
 	ouvrirModal(content: any) {
 		this.modalService.open(content, { centered: true });
