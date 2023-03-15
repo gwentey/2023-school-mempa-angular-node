@@ -1,6 +1,6 @@
 const Morceau = require("./morceau");
 
-module.exports = class  Playlist{
+module.exports = class Playlist {
 
     static idPlaylistCompteur = 0;
 
@@ -19,19 +19,16 @@ module.exports = class  Playlist{
     }
 
     //Pour ajouter un morceau
-    ajouterMorceau(titre, nomArtiste, photoCouverture){
+    ajouterMorceau(titre, nomArtiste, photoCouverture) {
         let m = new Morceau(titre, nomArtiste, this.idMorceaux, photoCouverture);
-        this.listeMorceaux[this.idMorceaux] = m;
+        this.listeMorceaux.push(m);
         this.idMorceaux++;
         return m;
     }
 
-    //Pour récupérer un morceau à partir de son id
-    getMorceau(id){
-        if(typeof this.listeMorceaux[id] === 'undefined'){
-            return false;
-        }
-        return this.listeMorceaux[this.idMorceaux];
-    }
+    
+
+
+
 
 }

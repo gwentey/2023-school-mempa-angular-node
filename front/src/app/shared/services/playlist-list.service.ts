@@ -33,7 +33,7 @@ export class PlaylistListService {
           contributeurs: json.nomsContributeurs,
           styleMusique: json.styleMusique,
           morceauMusiqueListe: json.listeMorceaux.map((m: any) => ({
-            id: m.id,
+            id: m.idMorceau,
             titre: m.titre,
             nomArtiste: m.nomArtiste,
             urlCouverture: m.photoCouverture,
@@ -50,9 +50,23 @@ export class PlaylistListService {
     return this.http.post(this.PLAYLIST_API_URL_HTTP+"ajoutermorceau",{idplaylist:idPlaylist, titre:titre, nomartiste:nomArtiste, urlcouverture:urlCouverture});
   }
 
-  public getMorceauxByPlaylist(id:number) {
-    let queryParams = new HttpParams().set("idPlaylist", id.toString());
-    return this.http.get<IPlaylist>(this.PLAYLIST_API_URL_HTTP + "getmorceauxbyidplaylist/", {params:queryParams});
+  public supprimerMorceau(idPlaylist:number, idMorceau:number){
+    let queryParams = new HttpParams().set("idPlaylist", idPlaylist.toString()).set("idMorceau", idMorceau.toString());
+    return this.http.delete(this.PLAYLIST_API_URL_HTTP+"deleteplaylistmorceau", {params:queryParams}).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
+  public modifierPlayList(idPlaylist: number, nomPlaylist: string, photoCouverture: string, styleMusique: string): Observable<IPlaylist> {
+    const playlist = {
+      nomPlaylist: nomPlaylist,
+      photoCouverture: photoCouverture,
+      styleMusique: styleMusique
+    };
+    return this.http.put<IPlaylist>(this.PLAYLIST_API_URL_HTTP + "modifierplaylist/" + idPlaylist, playlist)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   public ajouterClic(idPlaylist:number){

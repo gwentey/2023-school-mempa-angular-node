@@ -11,53 +11,104 @@
 
             <h5 class="ms-3"><img height="20px" src="./assets/icon/click.png" alt=""> {{ playlist.nombreClics }} </h5>
         </div>
+        <div class="col-4"></div>
+        <div class="col-2 d-flex justify-content-end pe-5">
+            <img class="icon-add-musique" src="./assets/icon/add-musique.png" (click)="ouvrirModal(ajoutMorceau)">
+            <img class="icon-playlist-modif" height="40px" src="./assets/icon/icon-modification.png" (click)="ouvrirModal(modification)">
 
-        <div class="col-5">
-            <h5>Ajouter un morceau </h5>
-            <div class="mt-3">
-                <form class="text-center needs-validation" novalidate (ngSubmit)="ajouterMusique()"
-                      [formGroup]="musiqueAjoutForm">
-
-                    <div class="form-floating mb-2">
-                        <input formControlName="nomMorceau" id="titre" type="text" class="form-control" placeholder="Nom du morceau">
-                        <label for="titre">Nom du morceau</label>
-                    </div>
-                    <div class="form-floating mb-2">
-                        <input formControlName="nomArtiste" id="nom" type="text" class="form-control" placeholder="Nom de l'artiste">
-                        <label for="nom">Nom de l'artiste</label>
-                    </div>
-                    <div class="form-floating mb-2">
-                        <input formControlName="urlCouverture" id= "url" type="text" class="form-control" placeholder="Nom playlist">
-                        <label for="url">Url de l'image</label>
-                    </div>
-
-                    <button type="submit" class="btn btn-success btn-lg">Ajouter le morceau</button>
-
-                </form>
-            </div>
         </div>
+
 
     </div>
 </div>
 <div class="container mt-5">
     <article class="card bg-dark m-3" *ngFor="let morceau of playlist.morceauMusiqueListe">
         <div class="row">
-            <div class="col-2">
-                <img class="image-couverture m-2 rounded" style="width: 75px; height: 75px" src="{{ morceau.urlCouverture }}" />
+            <div class="col-1">
+                <img class="image-couverture m-2 rounded" style="width: 75px; height: 75px"
+                    src="{{ morceau.urlCouverture }}" />
             </div>
-            <div class="col-1 d-flex">
-                <p class="m-2 my-auto">{{morceau.id}}</p>
-            </div>
+
             <div class="col-2 d-flex">
                 <p class="m-2 my-auto">{{morceau.titre}}</p>
             </div>
             <div class="col-2 d-flex">
                 <p class="m-2 my-auto">{{morceau.nomArtiste}}</p>
             </div>
-            <div class="col-2 d-flex mx-5">
-                <img src="assets/icon/effacer.png" class="my-auto" width="30px" height="30px" style="cursor:pointer;">
+            <div class="col-6"></div>
+            <div class="col-1 d-flex">
+                <img id="icon-delete" src="assets/icon/effacer.png"
+                    (click)="supprimerUnMorceau(playlist.idPlaylist, morceau.id)" class="my-auto">
             </div>
         </div>
     </article>
 
+    <!-- Le modal d'ajout  -->
+    <ng-template #ajoutMorceau let-modal>
+        <form class="text-center needs-validation" novalidate (ngSubmit)="ajouterMusique()"
+            [formGroup]="musiqueAjoutForm">
+            <div class="modal-header">
+                <h4 class="modal-title"> Ajouter un morceau
+                </h4>
+                <button type="button" class="btn-close" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-floating mb-2">
+                    <input formControlName="nomMorceau" id="titre" type="text" class="form-control"
+                        placeholder="Nom du morceau">
+                    <label for="titre">Nom du morceau</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input formControlName="nomArtiste" id="nom" type="text" class="form-control"
+                        placeholder="Nom de l'artiste">
+                    <label for="nom">Nom de l'artiste</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input formControlName="urlCouverture" id="url" type="text" class="form-control"
+                        placeholder="Nom playlist">
+                    <label for="url">Url de l'image</label>
+                </div>
+                <button type="submit" class="btn btn-success btn-lg" (click)="modal.close('Fermer modal')">Ajouter le
+                    morceau</button>
+            </div>
+
+        </form>
+
+    </ng-template>
+
+       <!-- Le modal de modification  -->
+       <ng-template #modification let-modal>
+        <form class="text-center needs-validation" novalidate (ngSubmit)="modificationDeLaPlaylist()"
+            [formGroup]="modifierPlaylist">
+            <div class="modal-header">
+                <h4 class="modal-title">Modifer la playlist
+                </h4>
+                <button type="button" class="btn-close" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-floating mb-2">
+                    <input formControlName="nomPlaylist" id="titre" type="text" class="form-control"
+                        placeholder="Nom de la playlist" value="{{ playlist.nomPlaylist }}">
+                    <label for="titre">Nom de la playlist</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input formControlName="stylePlaylist" id="nom" type="text" class="form-control"
+                        placeholder="Style de la playlis">
+                    <label for="nom">Style de la playlist</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input formControlName="urlCouverture" id="url" type="text" class="form-control"
+                        placeholder="Url couverture de la playlist" >
+                    <label for="url">Url de l'image</label>
+                </div>
+                <button type="submit" class="btn btn-success btn-lg" (click)="modal.close('Fermer modal')">Modifier</button>
+            </div>
+
+        </form>
+
+    </ng-template>
 </div>

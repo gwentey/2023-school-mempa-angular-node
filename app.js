@@ -81,6 +81,46 @@ app.get('/getplaylistbyid', function (req, res) {
     }
 });
 
+//Route DELETE pour supprimer un morceau d'une playlist avec son id (@Params : idPlaylist, idMorceau)
+app.delete('/deleteplaylistmorceau', function (req, res) {
+    const playlistId = req.query.idPlaylist;
+    const morceauId = req.query.idMorceau;
+    const playlist = playlists.find(p => p.idPlaylist == playlistId);
+    if (playlist) {
+        const morceauIndex = playlist.listeMorceaux.findIndex(m => m.idMorceau == morceauId);
+        if (morceauIndex !== -1) {
+            playlist.listeMorceaux.splice(morceauIndex, 1);
+            res.json({ message: "Le morceau a été supprimé de la playlist avec succès" });
+        } else {
+            res.status(404).json({ error: "Le morceau n'existe pas dans la playlist" });
+        }
+    } else {
+        res.status(404).json({ error: "La playlist n'existe pas" });
+    }
+});
+
+
+// Route PUT pour modifier une playlist
+app.put('/modifierplaylist/:id', function (req, res) {
+    const playlistId = req.params.id;
+    const playlist = playlists.find(p => p.idPlaylist == playlistId);
+    if (playlist) {
+        if (req.body.nomPlaylist) {
+            playlist.nomPlaylist = req.body.nomPlaylist;
+        }
+        if (req.body.styleMusique) {
+            playlist.styleMusique = req.body.styleMusique;
+        }
+        if (req.body.photoCouverture) {
+            playlist.photoCouverture = req.body.photoCouverture;
+        }
+        res.json(playlist);
+    } else {
+        res.status(404).json({ error: "La playlist n'existe pas" });
+    }
+});
+
+
 
 //Route GET pour récupérer les musiques d'une playlist
 app.get('/getmorceauxbyidplaylist', function (req, res) {
@@ -92,6 +132,8 @@ app.get('/getmorceauxbyidplaylist', function (req, res) {
     }
     res.json(p.listeMorceaux);
 });
+
+
 
 app.get('/createtestvalues', function (req, res) {
     let p = new Playlist("Daily Mix", "Antho", "French Rap", "https://static.fnac-static.com/multimedia/Images/FR/NR/fb/15/d2/13768187/1540-1/tsp20210831115225/Montagnes-Rues.jpg");
