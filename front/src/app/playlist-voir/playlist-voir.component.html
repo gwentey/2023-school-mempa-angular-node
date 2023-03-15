@@ -1,9 +1,9 @@
 <div class="container">
     <div class="row">
         <div class="col-2">
-            <img class="image-couverture" src="{{ playlist.photoCouverture }}" />
+            <img class="image-couverture" style="width: 200px;height: 200px" src="{{ playlist.photoCouverture }}" />
         </div>
-        <div class="col-10">
+        <div class="col-4">
             <h1 class="ms-3">{{ playlist.nomPlaylist }}</h1>
             <h5 class="ms-3">Contributeurs : {{ playlist.contributeurs }} </h5>
             <h5 class="ms-3">Créateur : {{ playlist.nomCreateur }} </h5>
@@ -12,10 +12,29 @@
             <h5 class="ms-3"><img height="20px" src="./assets/icon/click.png" alt=""> {{ playlist.nombreClics }} </h5>
         </div>
 
-        <div class="mt-5">
+        <div class="col-5">
+            <h5>Ajouter un morceau </h5>
+            <div class="mt-3">
+                <form class="text-center needs-validation" novalidate (ngSubmit)="ajouterMusique()"
+                      [formGroup]="musiqueAjoutForm">
 
+                    <div class="form-floating mb-2">
+                        <input formControlName="nomMorceau" id="titre" type="text" class="form-control" placeholder="Nom du morceau">
+                        <label for="titre">Nom du morceau</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input formControlName="nomArtiste" id="nom" type="text" class="form-control" placeholder="Nom de l'artiste">
+                        <label for="nom">Nom de l'artiste</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input formControlName="urlCouverture" id= "url" type="text" class="form-control" placeholder="Nom playlist">
+                        <label for="url">Url de l'image</label>
+                    </div>
 
+                    <button type="submit" class="btn btn-success btn-lg">Ajouter le morceau</button>
 
+                </form>
+            </div>
         </div>
 
     </div>
@@ -24,7 +43,7 @@
     <article class="card bg-dark m-3" *ngFor="let morceau of morceaux, let i=index">
         <div class="row">
             <div class="col-2">
-                <img class="image-couverture m-2" style="width: 75px; height: 75px" src="{{ playlist.photoCouverture }}" />
+                <img class="image-couverture m-2 rounded" style="width: 75px; height: 75px" src="{{ morceau.photoCouverture }}" />
             </div>
             <div class="col-1 d-flex">
                 <p class="m-2 my-auto">{{morceau.idMorceau}}</p>

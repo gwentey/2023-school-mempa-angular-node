@@ -8,20 +8,20 @@
         [formGroup]="playListCreationForm">
 
         <div class="form-floating mb-3">
-          <input formControlName="nomPlayList" type="name" class="form-control" placeholder="Nom playlist">
-          <label for="floatingInput">Nom</label>
+          <input formControlName="nomPlayList" id="nomPlayList" type="text" class="form-control" placeholder="Nom playlist">
+          <label for="nomPlayList">Nom</label>
         </div>
         <div class="form-floating mb-3">
-          <input formControlName="urlCouverture" type="name" class="form-control" placeholder="Nom playlist">
-          <label for="floatingInput">Url de l'image</label>
+          <input formControlName="urlCouverture" id= urlCouverture type="url" class="form-control" placeholder="Nom playlist">
+          <label for="urlCouverture">Url de l'image</label>
         </div>
         <div class="form-floating mb-3">
-          <input formControlName="nomCreateur" type="name" class="form-control" placeholder="Nom playlist">
-          <label for="floatingInput">Nom créateur</label>
+          <input formControlName="nomCreateur" id="nomCreateur" type="text" class="form-control" placeholder="Nom playlist">
+          <label for="nomCreateur">Nom créateur</label>
         </div>
         <div class="form-floating mb-3">
-          <input formControlName="nomStyle" type="name" class="form-control" placeholder="Nom playlist">
-          <label for="floatingInput">Style</label>
+          <input formControlName="nomStyle" id="nomStyle" type="text" class="form-control" placeholder="Nom playlist">
+          <label for="nomStyle">Style</label>
         </div>
 
         <button type="submit" class="btn btn-success btn-lg">Créer la playlist</button>
