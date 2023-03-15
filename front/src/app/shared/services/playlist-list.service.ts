@@ -36,7 +36,7 @@ export class PlaylistListService {
             id: m.id,
             titre: m.titre,
             nomArtiste: m.nomArtiste,
-            urlMusique: m.urlMusique,
+            urlCouverture: m.photoCouverture,
             duree: m.duree
           }))
         };

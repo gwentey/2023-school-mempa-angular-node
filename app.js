@@ -44,17 +44,14 @@ app.post('/ajoutermorceau/', function (req, res) {
         res.status(400).json({ error: 'Il faut préciser les paramètres.' });
         return false;
     }
-    // Boucle de recherche de playlist
-    let trouve = false;
-    let i = 0;
     const playlist = playlists.find(p => p.idPlaylist == req.body.idplaylist);
     if (!playlist) {
         res.status(404).json({ error: "La playlist n'existe pas" });
         return false;
     }
-    playlists.at(i).ajouterMorceau(req.body.titre, req.body.nomartiste, req.body.urlcouverture);
+    playlist.ajouterMorceau(req.body.titre, req.body.nomartiste, req.body.urlcouverture);
 
-    res.json(playlists.at(i));
+    res.json(playlist);
 });
 
 //Route GET pour ajouter un clic à une playlist
