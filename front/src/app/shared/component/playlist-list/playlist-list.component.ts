@@ -10,8 +10,52 @@ import { PlaylistListService } from '../../services/playlist-list.service';
 export class PlaylistListComponent {
 
   public listePlaylist: IPlaylist[] = [];
+  private _playlistFilter !: string ;
+  public filteredListePlaylist: IPlaylist[] = [];
 
   constructor(private playlistListService : PlaylistListService){}
+
+  ngOnInit() {
+    // récupération des playlists à partir du service injecté dans le constructeur
+    this.playlistListService.getPlaylist().subscribe({
+      next: lesPlaylists => {
+        // si la liste est vide on lance la création
+        if(lesPlaylists.length === 0){
+          this.playlistListService.creerTests().subscribe();
+          this.playlistListService.getPlaylist().subscribe({
+            next: lesPlaylists => this.listePlaylist = lesPlaylists,
+          });
+        } else {
+
+        this.listePlaylist = lesPlaylists;
+        this.filteredListePlaylist = this.listePlaylist;
+        }
+      },
+      error: err => { console.log("Erreur : " + err)}
+    })
+
+  }
+
+  public get playlistFilter(): string {
+    return this._playlistFilter;
+  }
+
+  public set playlistFilter(filter: string){
+    this._playlistFilter = filter;
+    this.filteredListePlaylist = this.playlistFilter ? this.filterPlaylist(this.playlistFilter) : this.listePlaylist;
+  }
+
+  private filterPlaylist(critere: string): IPlaylist[] {
+    critere = critere.toLocaleLowerCase();
+  
+    const res = this.listePlaylist.filter((playlist: IPlaylist) =>
+      playlist.nomPlaylist.toLocaleLowerCase().includes(critere) ||
+      playlist.styleMusique.toLocaleLowerCase().includes(critere)
+    );
+  
+    return res;
+  }
+
 
   trierAlphabetique(){
     this.listePlaylist.sort(compareAlpha);
@@ -28,26 +72,6 @@ export class PlaylistListComponent {
     isSortByAlphaStyle = !isSortByAlphaStyle;
   }
 
-  ngOnInit() {
-    // récupération des playlists à partir du service injecté dans le constructeur
-    this.playlistListService.getPlaylist().subscribe({
-      next: lesPlaylists => {
-        // si la liste est vide on lance la création
-        if(lesPlaylists.length === 0){
-          this.playlistListService.creerTests().subscribe();
-          this.playlistListService.getPlaylist().subscribe({
-            next: lesPlaylists => this.listePlaylist = lesPlaylists,
-          });
-        } else {
-
-        this.listePlaylist = lesPlaylists;
-        }
-      },
-      error: err => { console.log("Erreur : " + err)}
-    })
-
-
-  }
 }
 
 let isSortByAlpha = false;
@@ -84,6 +108,8 @@ function compareAlpha(a: IPlaylist, b:IPlaylist){
       return -1;
     }
   }
+
+  
 }
 
 function compareNbClics(a: IPlaylist, b:IPlaylist){
