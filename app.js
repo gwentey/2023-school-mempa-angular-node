@@ -6,7 +6,7 @@ const Morceau = require('./morceau');
 
 // Création du tableau de playlists
 let playlists = []
-let idplaylist = 0;
+let idPlaylist = 0;
 
 
 // Système de variable d'environnement
@@ -31,35 +31,46 @@ app.listen(3000, function () {
 // Route POST pour créer une playlist
 app.post('/creerplaylist/', function (req, res) {
 
-    let id = playlists.push(new Playlist(req.body.nomPlaylist, req.body.nomCreateur, req.body.styleMusique, req.body.photoCouverture))
-    res.json({id: id, playlist: playlists});
+    let p = new Playlist(req.body.nomPlaylist, req.body.nomCreateur, req.body.styleMusique, req.body.photoCouverture);
+    playlists.push(p);
+    res.json({id: p.idPlaylist, playlist: p});
 });
 
 // Route PUT pour ajouter un morceau à une playlist
-app.put('/ajoutermorceau/:idplaylist/:titremorceau/:nomartiste', function (req, res) {
-    if (typeof req.params.idplaylist === 'undefined' || typeof req.params.titremorceau === 'undefined' || typeof req.params.nomartiste === 'undefined') {
+app.put('/ajoutermorceau/:idPlaylist/:titremorceau/:nomartiste', function (req, res) {
+    if (typeof req.params.idPlaylist === 'undefined' || typeof req.params.titremorceau === 'undefined' || typeof req.params.nomartiste === 'undefined') {
         res.status(400).json({error: 'Il faut préciser les paramètres.'});
         return false;
     }
-    let p = playlists.at(idplaylist);
+    let p = playlists.at(idPlaylist);
     if (typeof p === 'undefined') {
         res.status(404).json({error: "La playlist n'existe pas"});
         return false;
     }
-    morceau = p.ajouterMorceau(req.params.titremorceau, req.params.nomartiste);
+    let morceau = p.ajouterMorceau(req.params.titremorceau, req.params.nomartiste);
     res.json(p);
 });
 
 //Route GET pour ajouter un clic à une playlist
 app.get('/ajouterclic/', function (req, res){
-    console.log(req.query.idplaylist)
-    if(req.query.idplaylist==='undefined'){
+    console.log(req.query.idPlaylist)
+    if(req.query.idPlaylist==='undefined'){
         res.status(400).json({error: 'Il faut préciser les paramètres.'});
         return false;
     }
-    let p = playlists.at(req.query.idplaylist);
-    p.nombreClics++;
-    res.json({nombreClics:p.nombreClics});
+
+    // Boucle de recherche de playlist
+    let trouve = false;
+    let i = 0;
+    while ((!trouve && i < playlists.length)) {
+        if (req.query.idPlaylist === playlists.at(i).idPlaylist) {
+            trouve = true;
+            playlists.at(i).nombreClics++;
+        } else {
+            i++;
+        }
+    }
+    res.json({nombreClics:playlists.at(i).nombreClics});
 });
 
 //Route GET pour récupérer toutes les playlists
@@ -67,11 +78,11 @@ app.get('/getallplaylists', function (req, res) {
     res.json(playlists);
 });
 
-//Route GET pour récupérer une playlist avec son id (@Params : idplaylist)
+//Route GET pour récupérer une playlist avec son id (@Params : idPlaylist)
 
 app.get('/getplaylistbyid', function (req, res) {
-    console.log(req.query.idplaylist);
-    let p = playlists.at(req.query.idplaylist);
+    console.log(req.query.idPlaylist);
+    let p = playlists.at(req.query.idPlaylist);
     if (typeof p === 'undefined') {
         res.status(404).json({error: "La playlist n'existe pas"});
         return false;
