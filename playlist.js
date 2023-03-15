@@ -16,7 +16,6 @@ module.exports = class  Playlist{
         this.nombreClics = 0;
         this.styleMusique = styleMusique;
         Playlist.idPlaylistCompteur++;
-        console.log(Playlist.idPlaylistCompteur);
     }
 
     //Pour ajouter un morceau

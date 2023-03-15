@@ -31,7 +31,7 @@ app.post('/creerplaylist/', function (req, res) {
 
     let p = new Playlist(req.body.nomPlaylist, req.body.nomCreateur, req.body.styleMusique, req.body.photoCouverture);
     playlists.push(p);
-    res.json({id: p.idPlaylist, playlist: p});
+    res.json({ id: p.idPlaylist, playlist: p });
 });
 
 // Route PUT pour ajouter un morceau à une playlist
@@ -39,7 +39,7 @@ app.put('/ajoutermorceau/:idPlaylist/:titremorceau/:nomartiste', function (req, 
 
     // Vérification du passages des paramètres
     if (typeof req.params.idPlaylist === 'undefined' || typeof req.params.titremorceau === 'undefined' || typeof req.params.nomartiste === 'undefined') {
-        res.status(400).json({error: 'Il faut préciser les paramètres.'});
+        res.status(400).json({ error: 'Il faut préciser les paramètres.' });
         return false;
     }
 
@@ -51,7 +51,7 @@ app.put('/ajoutermorceau/:idPlaylist/:titremorceau/:nomartiste', function (req, 
         if (req.query.idPlaylist === playlists.at(i).idPlaylist) {
             trouve = true;
             if (typeof playlists.at(i) === 'undefined') {
-                res.status(404).json({error: "La playlist n'existe pas"});
+                res.status(404).json({ error: "La playlist n'existe pas" });
                 return false;
             } else {
                 playlists.at(i).ajouterMorceau(req.params.titremorceau, req.params.nomartiste);
@@ -66,25 +66,12 @@ app.put('/ajoutermorceau/:idPlaylist/:titremorceau/:nomartiste', function (req, 
 //Route GET pour ajouter un clic à une playlist
 app.get('/ajouterclic/', function (req, res) {
 
-    console.log(req.query.idPlaylist)
-
-    if (req.query.idPlaylist === 'undefined') {
-        res.status(400).json({error: 'Il faut préciser les paramètres.'});
-        return false;
+    const playlistId = req.query.idPlaylist;
+    const playlist = playlists.find(p => p.idPlaylist == playlistId);
+    if (playlist) {
+        playlist.nombreClics++;
     }
-
-    // Boucle de recherche de playlist
-    let trouve = false;
-    let i = 0;
-    while ((!trouve && i < playlists.length)) {
-        if (req.query.idPlaylist === playlists.at(i).idPlaylist) {
-            trouve = true;
-            playlists.at(i).nombreClics++;
-        } else {
-            i++;
-        }
-    }
-    res.json({nombreClics: playlists.at(i).nombreClics});
+    res.json({ nombreClics: playlist.nombreClics });
 });
 
 //Route GET pour récupérer toutes les playlists
@@ -93,37 +80,23 @@ app.get('/getallplaylists', function (req, res) {
 });
 
 //Route GET pour récupérer une playlist avec son id (@Params : idPlaylist)
-
-app.get('/getplaylistbyid/:idPlaylist', function (req, res) {
-    // Boucle de recherche de playlist
-    let trouve = false;
-    let i = 0;
-    console.log(playlists.length);
-    while ((!trouve) && (i < playlists.length)) {
-        if (req.params.idPlaylist == playlists[i].idPlaylist) {
-            trouve = true;
-            if (typeof playlists[i] === 'undefined') {
-                res.status(404).json({error: "La playlist n'existe pas"});
-                return false;
-            } else {
-                console.log("Trouvé !");
-            }
-        } else {
-            console.log(i);
-            i++;
-        }
+app.get('/getplaylistbyid', function (req, res) {
+    const playlistId = req.query.idPlaylist;
+    const playlist = playlists.find(p => p.idPlaylist == playlistId);
+    if (playlist) {
+        res.json(playlist);
+    } else {
+        res.status(404).json({ error: "La playlist n'existe pas" });
     }
-    console.log(i);
-    console.log(playlists[i]);
-    res.json(playlists.at(i));
 });
 
+
 //Route GET pour récupérer les musiques d'une playlist
-app.get('/getmorceauxbyidplaylist', function (req, res){
+app.get('/getmorceauxbyidplaylist', function (req, res) {
     console.log(req.query.idplaylist);
     let p = playlists.at(req.query.idplaylist);
     if (typeof p === 'undefined') {
-        res.status(404).json({error: "La playlist n'existe pas"});
+        res.status(404).json({ error: "La playlist n'existe pas" });
         return false;
     }
     res.json(p.listeMorceaux);
@@ -160,5 +133,5 @@ app.get('/createtestvalues', function (req, res) {
     p6.ajouterMorceau("Midnight City", "M83");
     playlists.push(p6);
 
-    res.json({success: true});
+    res.json({ success: true });
 });

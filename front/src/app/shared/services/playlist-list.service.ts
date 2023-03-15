@@ -20,7 +20,7 @@ export class PlaylistListService {
 
   // permet d'obtenir la playlist associé à l'id
   public getPlayListById(id : Number) : Observable<IPlaylist> {
-    let queryParams = new HttpParams().set("idplaylist", id.toString());
+    let queryParams = new HttpParams().set("idPlaylist", id.toString());
     return this.http.get<IPlaylist>(this.PLAYLIST_API_URL_HTTP + "getplaylistbyid/", {params:queryParams}).pipe(
       map((json: any) => {
         const playlist: IPlaylist = {
@@ -46,12 +46,12 @@ export class PlaylistListService {
   }
 
   getMorceauxByPlaylist(id:number) {
-    let queryParams = new HttpParams().set("idplaylist", id.toString());
+    let queryParams = new HttpParams().set("idPlaylist", id.toString());
     return this.http.get<IPlaylist>(this.PLAYLIST_API_URL_HTTP + "getmorceauxbyidplaylist/", {params:queryParams});
   }
 
   public ajouterClic(idPlaylist:number){
-    let queryParams = new HttpParams().set("idplaylist", idPlaylist.toString());
+    let queryParams = new HttpParams().set("idPlaylist", idPlaylist.toString());
 
     return this.http.get<any>(this.PLAYLIST_API_URL_HTTP + "ajouterclic/", {params:queryParams}).pipe(
       catchError(this.handleError)
