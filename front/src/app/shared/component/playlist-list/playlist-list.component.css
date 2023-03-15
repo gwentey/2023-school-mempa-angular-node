@@ -5,6 +5,11 @@ h3 {
   line-height: 1.1;
 }
 
+.icon-filter{
+  width: 25px; 
+  filter: invert(100%); 
+  cursor: pointer
+}
 
 a {
   text-decoration: none;
