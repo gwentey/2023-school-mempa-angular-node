@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IPlaylist } from '../shared/models/playlist';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { PlaylistListService } from '../shared/services/playlist-list.service';
-import { FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,15 +24,50 @@ export class PlaylistVoirComponent implements OnInit {
     styleMusique: "",
     morceauMusiqueListe: []
   };
-  musiqueAjoutForm: any;
+  musiqueAjoutForm!: FormGroup;
+  modifierPlaylist!: FormGroup;
 
-  constructor(private router: Router, private fb: FormBuilder, private playlistListService: PlaylistListService, private route: ActivatedRoute) {
+
+  constructor(private router: Router, private fb: FormBuilder, 
+    private playlistListService: PlaylistListService, private route: ActivatedRoute,
+    private modalService: NgbModal) {
   }
 
   ngOnInit() {
 
-    this.actualiserLaPlaylist();
+    this.playlistListService.getPlayListById(Number(this.route.snapshot.paramMap.get('id'))).subscribe({
+      next: playlist => {
+        this.playlist = playlist;
+        this.playlist.nombreClics++;
+        this.playlistListService.ajouterClic(Number(this.route.snapshot.paramMap.get('id'))).subscribe();
+        this.afficherFormulairePlaylist();
+      },
+      error: err => console.log(err)
+    });
 
+
+    this.modifierPlaylist = this.fb.group({
+      nomPlaylist: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(15)
+        ]
+      ],
+      urlCouverture: ['', Validators.required],
+      stylePlaylist: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(15)
+        ]
+      ]
+    });
+
+
+    
     this.musiqueAjoutForm = this.fb.group({
       nomMorceau: [
         '',
@@ -53,6 +89,16 @@ export class PlaylistVoirComponent implements OnInit {
     });
 
   }
+
+  afficherFormulairePlaylist(): void {
+    this.modifierPlaylist.patchValue({
+      nomPlaylist: this.playlist.nomPlaylist,
+      urlCouverture: this.playlist.photoCouverture,
+      stylePlaylist: this.playlist.styleMusique
+    })
+  }
+
+
 
   supprimerUnMorceau(idPlaylist:number, idMorceau:number): void {
     console.log("id playlist : " + idPlaylist);
@@ -86,6 +132,15 @@ export class PlaylistVoirComponent implements OnInit {
       error: err => console.log(err)
     });
   }
+
+  modificationDeLaPlaylist(){
+
+  }
+
+
+	ouvrirModal(content: any) {
+		this.modalService.open(content, { centered: true });
+	}
 
 
 }

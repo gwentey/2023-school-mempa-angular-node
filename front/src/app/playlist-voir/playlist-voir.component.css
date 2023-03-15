@@ -14,9 +14,30 @@ p {
   margin-right: 1rem;
 }
 
+.btn-close {
+  filter: invert(1);
+}
+
+.icon-add-musique {
+  filter: invert(1);
+  cursor: pointer;
+  height: 50px;
+  width: auto;
+
+}
+
+.icon-playlist-modif {
+  filter: invert(1);
+  cursor: pointer;
+  height: 44px;
+  width: auto;
+
+}
+
 .image-couverture img {
   height: 100%;
   width: auto;
+  
 }
 
 
@@ -24,4 +45,17 @@ p {
   cursor: pointer;
   height: 37px;
   width: auto;
+}
+
+.modal-header {
+  background-color: #121212;
+}
+
+.modal-footer {
+  background-color: #121212;
+}
+
+.modal-body {
+background-color: #212121;
+
 }
