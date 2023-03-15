@@ -20,27 +20,15 @@ module.exports = class Playlist {
 
     //Pour ajouter un morceau
     ajouterMorceau(titre, nomArtiste, photoCouverture) {
-        let m = new Morceau(idMorceaux, titre, nomArtiste, this.idMorceaux, photoCouverture);
-        this.listeMorceaux[this.idMorceaux] = m;
+        let m = new Morceau(titre, nomArtiste, this.idMorceaux, photoCouverture);
+        this.listeMorceaux.push(m);
         this.idMorceaux++;
         return m;
     }
 
-    //Pour récupérer un morceau à partir de son id
-    getMorceau(id) {
-        if (typeof this.listeMorceaux[id] === 'undefined') {
-            return false;
-        }
-        return this.listeMorceaux[this.idMorceaux];
-    }
+    
 
-    //Permet de supprimer un morceau à partir de son id 
-    supprimerMorceau(id) {
-        if (typeof this.listeMorceaux[id] === 'undefined') {
-            return false;
-        }
-        delete this.listeMorceaux[id];
-        return true;
-    }
+
+
 
 }

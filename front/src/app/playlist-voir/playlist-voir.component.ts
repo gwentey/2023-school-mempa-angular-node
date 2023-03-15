@@ -30,16 +30,7 @@ export class PlaylistVoirComponent implements OnInit {
 
   ngOnInit() {
 
-    this.playlistListService.getPlayListById(Number(this.route.snapshot.paramMap.get('id'))).subscribe({
-      next: playlist => {
-        this.playlist = playlist;
-        this.playlist.nombreClics++;
-        this.playlistListService.ajouterClic(Number(this.route.snapshot.paramMap.get('id'))).subscribe();
-        console.log(playlist);
-      },
-      error: err => console.log(err)
-    });
-
+    this.actualiserLaPlaylist();
 
     this.musiqueAjoutForm = this.fb.group({
       nomMorceau: [
@@ -63,6 +54,13 @@ export class PlaylistVoirComponent implements OnInit {
 
   }
 
+  supprimerUnMorceau(idPlaylist:number, idMorceau:number): void {
+    console.log("id playlist : " + idPlaylist);
+    console.log("id morceau : " + idMorceau);
+
+    this.playlistListService.supprimerMorceau(idPlaylist,idMorceau).subscribe();
+    this.actualiserLaPlaylist();
+  }
 
   ajouterMusique(): void {
     if (this.musiqueAjoutForm.valid) {
@@ -72,18 +70,21 @@ export class PlaylistVoirComponent implements OnInit {
           this.musiqueAjoutForm.value.nomArtiste,
           this.musiqueAjoutForm.value.urlCouverture).subscribe();
 
-        this.playlistListService.getPlayListById(Number(this.route.snapshot.paramMap.get('id'))).subscribe({
-          next: playlist => {
-            this.playlist = playlist;
-            this.playlist.nombreClics++;
-            this.playlistListService.ajouterClic(Number(this.route.snapshot.paramMap.get('id'))).subscribe();
-          },
-          error: err => console.log(err)
-        });
-
-
+          this.actualiserLaPlaylist();
       }
     }
+  }
+
+  actualiserLaPlaylist(): void {
+    this.playlistListService.getPlayListById(Number(this.route.snapshot.paramMap.get('id'))).subscribe({
+      next: playlist => {
+        this.playlist = playlist;
+        this.playlist.nombreClics++;
+        this.playlistListService.ajouterClic(Number(this.route.snapshot.paramMap.get('id'))).subscribe();
+        console.log(playlist);
+      },
+      error: err => console.log(err)
+    });
   }
 
 
