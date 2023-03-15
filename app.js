@@ -94,22 +94,27 @@ app.get('/getallplaylists', function (req, res) {
 
 //Route GET pour récupérer une playlist avec son id (@Params : idPlaylist)
 
-app.get('/getplaylistbyid', function (req, res) {
-    console.log(req.query.idPlaylist);
+app.get('/getplaylistbyid/:idPlaylist', function (req, res) {
     // Boucle de recherche de playlist
     let trouve = false;
     let i = 0;
-    while ((!trouve && i < playlists.length)) {
-        if (req.query.idPlaylist === playlists.at(i).idPlaylist) {
+    console.log(playlists.length);
+    while ((!trouve) && (i < playlists.length)) {
+        if (req.params.idPlaylist == playlists[i].idPlaylist) {
             trouve = true;
-            if (typeof playlists.at(i) === 'undefined') {
+            if (typeof playlists[i] === 'undefined') {
                 res.status(404).json({error: "La playlist n'existe pas"});
                 return false;
+            } else {
+                console.log("Trouvé !");
             }
         } else {
+            console.log(i);
             i++;
         }
     }
+    console.log(i);
+    console.log(playlists[i]);
     res.json(playlists.at(i));
 });
 

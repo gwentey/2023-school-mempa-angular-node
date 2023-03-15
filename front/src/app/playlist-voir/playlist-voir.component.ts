@@ -12,7 +12,7 @@ import { PlaylistListService } from '../shared/services/playlist-list.service';
 })
 export class PlaylistVoirComponent implements OnInit{
 
-  public playlist: IPlaylist = {nomPlaylist: "",photoCouverture: "",nomCreateur: "",nombreClics: 0,contributeurs: [],styleMusique: "",morceauMusiqueListe : []};
+  public playlist: IPlaylist = {idPlaylist: 0, nomPlaylist: "",photoCouverture: "",nomCreateur: "",nombreClics: 0,contributeurs: [],styleMusique: "",morceauMusiqueListe : []};
 
   constructor(private playlistListService : PlaylistListService, private route: ActivatedRoute){}
 

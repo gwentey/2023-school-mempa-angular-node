@@ -24,6 +24,7 @@ export class PlaylistListService {
     return this.http.get<IPlaylist>(this.PLAYLIST_API_URL_HTTP + "getplaylistbyid/", {params:queryParams}).pipe(
       map((json: any) => {
         const playlist: IPlaylist = {
+          idPlaylist: json.idPlaylist,
           nomPlaylist: json.nomPlaylist,
           photoCouverture: json.photoCouverture,
           nomCreateur: json.nomCreateur,
