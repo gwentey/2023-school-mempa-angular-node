@@ -1,32 +1,39 @@
 <!-- La liste des playlists -->
 <section class="playlist">
-  <div class="container mb-5">
-    <div class="row">
-      <div class="float-end">
-        <div class="text-white"><p class="">Trier : </p></div>
-        <img class="mx-2" (click)="trierAlphabetique()" style="width: 25px; filter: invert(100%); cursor: pointer" src="./assets/icon/trier.png">
-        <img class="mx-2" (click)="trierAlphabetiqueStyle()" style="width: 25px; filter: invert(100%); cursor: pointer" src="./assets/icon/categories.png">
-        <img class="mx-2" (click)="trierNombreClics()" style="width: 25px; filter: invert(0%); cursor: pointer" src="./assets/icon/click.png">
 
+  <div class="container mb-5">
+
+    <div class="row">
+
+      <div class="col-10">
+        <input class="form-control" type="text" placeholder="Default input" aria-label="default input example">
+      </div>
+
+      <div class="col-2">
+        <img class="mx-2" (click)="trierAlphabetique()" style="width: 25px; filter: invert(100%); cursor: pointer"
+          src="./assets/icon/trier.png">
+        <img class="mx-2" (click)="trierAlphabetiqueStyle()" style="width: 25px; filter: invert(100%); cursor: pointer"
+          src="./assets/icon/categories.png">
+        <img class="mx-2" (click)="trierNombreClics()" style="width: 25px; filter: invert(0%); cursor: pointer"
+          src="./assets/icon/click.png">
       </div>
 
     </div>
-
-
   </div>
+
   <div class="row">
     <article class="col-3 mb-3" *ngFor="let playlist of listePlaylist">
       <a class="playlist_lien" routerLink="voir/{{ playlist.idPlaylist }}">
         <div class="playlist_img_container">
           <figure class="playlist_img">
-            <img class="absolute-bg" src="{{ playlist.photoCouverture }}"
-                 alt=""/>
+            <img class="absolute-bg" src="{{ playlist.photoCouverture }}" alt="" />
           </figure>
         </div>
         <div class="playlist_text">
           <h3 class="playlist_title">{{ playlist.nomPlaylist }}
           </h3>
-          <span class="playlist_position">{{ playlist.nomCreateur }} | {{playlist.styleMusique}} | {{playlist.nombreClics}}</span>
+          <span class="playlist_position">{{ playlist.nomCreateur }} | {{playlist.styleMusique}} |
+            {{playlist.nombreClics}}</span>
         </div>
       </a>
     </article>
