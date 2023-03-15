@@ -2,11 +2,9 @@ const express = require('express');
 const app = express();
 
 const Playlist = require('./playlist');
-const Morceau = require('./morceau');
 
 // Création du tableau de playlists
 let playlists = []
-let idPlaylist = 0;
 
 
 // Système de variable d'environnement
