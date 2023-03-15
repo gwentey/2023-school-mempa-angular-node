@@ -45,6 +45,11 @@ export class PlaylistListService {
     )
   }
 
+  getMorceauxByPlaylist(id:number) {
+    let queryParams = new HttpParams().set("idplaylist", id.toString());
+    return this.http.get<IPlaylist>(this.PLAYLIST_API_URL_HTTP + "getmorceauxbyidplaylist/", {params:queryParams});
+  }
+
   public ajouterClic(idPlaylist:number){
     let queryParams = new HttpParams().set("idplaylist", idPlaylist.toString());
 

@@ -118,6 +118,17 @@ app.get('/getplaylistbyid/:idPlaylist', function (req, res) {
     res.json(playlists.at(i));
 });
 
+//Route GET pour récupérer les musiques d'une playlist
+app.get('/getmorceauxbyidplaylist', function (req, res){
+    console.log(req.query.idplaylist);
+    let p = playlists.at(req.query.idplaylist);
+    if (typeof p === 'undefined') {
+        res.status(404).json({error: "La playlist n'existe pas"});
+        return false;
+    }
+    res.json(p.listeMorceaux);
+});
+
 app.get('/createtestvalues', function (req, res) {
     let p = new Playlist("Daily Mix", "Antho", "French Rap", "https://static.fnac-static.com/multimedia/Images/FR/NR/fb/15/d2/13768187/1540-1/tsp20210831115225/Montagnes-Rues.jpg");
     p.ajouterMorceau("Pas à ma place", "Lujipeka");
