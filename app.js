@@ -93,8 +93,8 @@ app.get('/getplaylistbyid', function (req, res) {
 
 //Route GET pour récupérer les musiques d'une playlist
 app.get('/getmorceauxbyidplaylist', function (req, res) {
-    console.log(req.query.idplaylist);
-    let p = playlists.at(req.query.idplaylist);
+    console.log(req.query.idPlaylist);
+    let p = playlists.at(req.query.idPlaylist);
     if (typeof p === 'undefined') {
         res.status(404).json({ error: "La playlist n'existe pas" });
         return false;
