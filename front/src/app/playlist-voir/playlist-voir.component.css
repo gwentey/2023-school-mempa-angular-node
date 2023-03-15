@@ -1,15 +1,27 @@
-h1,h2,h3,h4,h5,p {
-    color: white;
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  color: white;
 }
 
 .image-couverture {
-    flex: none;
-    width: auto;
-    height: 200px;
-    margin-right: 1rem;
-  }
-  
-  .image-couverture img {
-    height: 100%;
-    width: auto;
-  }
+  flex: none;
+  width: auto;
+  height: 200px;
+  margin-right: 1rem;
+}
+
+.image-couverture img {
+  height: 100%;
+  width: auto;
+}
+
+
+#icon-delete {
+  cursor: pointer;
+  height: 37px;
+  width: auto;
+}

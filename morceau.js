@@ -1,7 +1,9 @@
 module.exports = class Morceau {
 
     //Constructeur de la classe
-    constructor(titre, nomArtiste, idMorceau, photoCouverture) {
+    constructor(id, titre, nomArtiste, idMorceau, photoCouverture) {
+
+        this.id = id;
         this.titre = titre;
         this.nomArtiste = nomArtiste;
         this.idMorceau = idMorceau;
