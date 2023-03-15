@@ -10,156 +10,84 @@ import { PlaylistListService } from '../../services/playlist-list.service';
 export class PlaylistListComponent {
 
   public listePlaylist: IPlaylist[] = [];
-  private _playlistFilter !: string ;
+  private _playlistFilter: string = '';
   public filteredListePlaylist: IPlaylist[] = [];
+  private dernierTrierFait: string = '';
 
-  constructor(private playlistListService : PlaylistListService){}
+  constructor(private playlistListService: PlaylistListService) { }
 
   ngOnInit() {
     // récupération des playlists à partir du service injecté dans le constructeur
     this.playlistListService.getPlaylist().subscribe({
       next: lesPlaylists => {
         // si la liste est vide on lance la création
-        if(lesPlaylists.length === 0){
+        if (lesPlaylists.length === 0) {
           this.playlistListService.creerTests().subscribe();
           this.playlistListService.getPlaylist().subscribe({
             next: lesPlaylists => this.listePlaylist = lesPlaylists,
           });
         } else {
-
-        this.listePlaylist = lesPlaylists;
-        this.filteredListePlaylist = this.listePlaylist;
+          this.listePlaylist = lesPlaylists;
+          this.filteredListePlaylist = this.listePlaylist;
         }
       },
-      error: err => { console.log("Erreur : " + err)}
+      error: err => { console.log("Erreur : " + err) }
     })
-
   }
 
   public get playlistFilter(): string {
     return this._playlistFilter;
   }
 
-  public set playlistFilter(filter: string){
+  public set playlistFilter(filter: string) {
     this._playlistFilter = filter;
     this.filteredListePlaylist = this.playlistFilter ? this.filterPlaylist(this.playlistFilter) : this.listePlaylist;
   }
 
   private filterPlaylist(critere: string): IPlaylist[] {
     critere = critere.toLocaleLowerCase();
-  
+
     const res = this.listePlaylist.filter((playlist: IPlaylist) =>
       playlist.nomPlaylist.toLocaleLowerCase().includes(critere) ||
       playlist.styleMusique.toLocaleLowerCase().includes(critere)
     );
-  
+
     return res;
   }
 
-
-  trierAlphabetique(){
-    this.listePlaylist.sort(compareAlpha);
-    isSortByAlpha = !isSortByAlpha;
-  }
-
-  trierNombreClics() {
-    this.listePlaylist.sort(compareNbClics);
-    isSortByNbClics = !isSortByNbClics;
-  }
-
-  trierAlphabetiqueStyle() {
-    this.listePlaylist.sort(compareAlphaStyle);
-    isSortByAlphaStyle = !isSortByAlphaStyle;
-  }
-
-}
-
-let isSortByAlpha = false;
-let isSortByAlphaStyle = false;
-let isSortByNbClics = false;
-function compareAlpha(a: IPlaylist, b:IPlaylist){
-  if(a.nomPlaylist===undefined){
-    return 0;
-  }
-  if(a.nomPlaylist.charAt(0)>b.nomPlaylist.charAt(0)){
-    if(isSortByAlpha){
-      return -1;
-    }else{
-      return 1;
-    }
-  }else if(a.nomPlaylist.charAt(0)===b.nomPlaylist.charAt(0)){
-    if(a.nomPlaylist.charAt(1)>b.nomPlaylist.charAt(1)){
-      if(isSortByAlpha){
-        return -1;
-      }else{
-        return 1;
-      }
-    }else{
-      if(isSortByAlpha){
-        return 1;
-      }else{
-        return -1;
-      }
-    }
-  }else{
-    if(isSortByAlpha){
-      return 1;
-    }else{
-      return -1;
+  public trierAlphabetique() {
+    const triEffectue = 'nomPlaylist';
+    if (triEffectue === this.dernierTrierFait) {
+      this.filteredListePlaylist.reverse();
+    } else {
+      this.filteredListePlaylist.sort((a: IPlaylist, b: IPlaylist) =>
+        a[triEffectue].toLocaleLowerCase().localeCompare(b[triEffectue].toLocaleLowerCase())
+      );
+      this.dernierTrierFait = triEffectue;
     }
   }
 
-  
-}
+  public trierNombreClics() {
+    const triEffectue = 'nombreClics';
+    if (triEffectue === this.dernierTrierFait) {
+      this.filteredListePlaylist.reverse();
+    } else {
+      this.filteredListePlaylist.sort((a: IPlaylist, b: IPlaylist) =>
+        b[triEffectue] - a[triEffectue]
+      );
+      this.dernierTrierFait = triEffectue;
+    }
+  }
 
-function compareNbClics(a: IPlaylist, b:IPlaylist){
-  if(a.nombreClics===undefined){
-    return 0;
-  }
-  if(a.nombreClics>b.nombreClics){
-    if(isSortByNbClics){
-      return 1;
-    }else{
-      return -1;
-    }
-  }else{
-    if(isSortByNbClics){
-      return -1;
-    }else{
-      return 1;
-    }
-  }
-}
-
-function compareAlphaStyle(a: IPlaylist, b:IPlaylist){
-  if(a.styleMusique===undefined){
-    return 0;
-  }
-  if(a.styleMusique.charAt(0)>b.styleMusique.charAt(0)){
-    if(isSortByAlphaStyle){
-      return -1;
-    }else{
-      return 1;
-    }
-  }else if(a.styleMusique.charAt(0)===b.styleMusique.charAt(0)){
-    if(a.styleMusique.charAt(1)>b.styleMusique.charAt(1)){
-      if(isSortByAlphaStyle){
-        return -1;
-      }else{
-        return 1;
-      }
-    }else{
-      if(isSortByAlphaStyle){
-        return 1;
-      }else{
-        return -1;
-      }
-    }
-  }else{
-    if(isSortByAlphaStyle){
-      return 1;
-    }else{
-      return -1;
+  public trierParStyleMusique() {
+    const triEffectue = 'styleMusique';
+    if (triEffectue === this.dernierTrierFait) {
+      this.filteredListePlaylist.reverse();
+    } else {
+      this.filteredListePlaylist.sort((a: IPlaylist, b: IPlaylist) =>
+        a[triEffectue].toLocaleLowerCase().localeCompare(b[triEffectue].toLocaleLowerCase())
+      );
+      this.dernierTrierFait = triEffectue;
     }
   }
 }
