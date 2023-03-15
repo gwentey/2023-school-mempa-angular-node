@@ -34,32 +34,26 @@ app.post('/creerplaylist/', function (req, res) {
     res.json({ id: p.idPlaylist, playlist: p });
 });
 
-// Route PUT pour ajouter un morceau à une playlist
-app.put('/ajoutermorceau/:idPlaylist/:titremorceau/:nomartiste', function (req, res) {
-
+// Route POST pour ajouter un morceau à une playlist
+app.post('/ajoutermorceau/', function (req, res) {
     // Vérification du passages des paramètres
-    if (typeof req.params.idPlaylist === 'undefined' || typeof req.params.titremorceau === 'undefined' || typeof req.params.nomartiste === 'undefined') {
+    if (typeof req.body.idplaylist === 'undefined' ||
+        typeof req.body.titre === 'undefined' ||
+        typeof req.body.nomartiste === 'undefined'||
+        typeof req.body.urlcouverture === 'undefined') {
         res.status(400).json({ error: 'Il faut préciser les paramètres.' });
         return false;
     }
-
     // Boucle de recherche de playlist
     let trouve = false;
     let i = 0;
-
-    while ((!trouve && i < playlists.length)) {
-        if (req.query.idPlaylist === playlists.at(i).idPlaylist) {
-            trouve = true;
-            if (typeof playlists.at(i) === 'undefined') {
-                res.status(404).json({ error: "La playlist n'existe pas" });
-                return false;
-            } else {
-                playlists.at(i).ajouterMorceau(req.params.titremorceau, req.params.nomartiste);
-            }
-        } else {
-            i++;
-        }
+    const playlist = playlists.find(p => p.idPlaylist == req.body.idplaylist);
+    if (!playlist) {
+        res.status(404).json({ error: "La playlist n'existe pas" });
+        return false;
     }
+    playlists.at(i).ajouterMorceau(req.body.titre, req.body.nomartiste, req.body.urlcouverture);
+
     res.json(playlists.at(i));
 });
 
@@ -104,33 +98,35 @@ app.get('/getmorceauxbyidplaylist', function (req, res) {
 
 app.get('/createtestvalues', function (req, res) {
     let p = new Playlist("Daily Mix", "Antho", "French Rap", "https://static.fnac-static.com/multimedia/Images/FR/NR/fb/15/d2/13768187/1540-1/tsp20210831115225/Montagnes-Rues.jpg");
-    p.ajouterMorceau("Pas à ma place", "Lujipeka");
-    p.ajouterMorceau("Metaverse", "Lujipeka");
+    p.ajouterMorceau("Pas à ma place", "Lujipeka", "https://i.scdn.co/image/ab67616d0000b273ba86c4f1cb31140461b9763e");
+    p.ajouterMorceau("Metaverse", "Lujipeka", "https://cdns-images.dzcdn.net/images/cover/5736ee1d94629537ca08062348b19c5d/264x264.jpg");
     playlists.push(p);
 
     let p2 = new Playlist("Noel 2023", "Lulu", "Pop", "http://cdn.shopify.com/s/files/1/0337/7931/8828/articles/noel-2023.png?v=1673806208");
-    p2.ajouterMorceau("All I Want For Christmas Is You", "Mariah Carey");
-    p2.ajouterMorceau("Have Yourself a Merry Little Christmas", "Michael Bublé");
+    p2.ajouterMorceau("All I Want For Christmas Is You", "Mariah Carey", "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/81U6o32LuUL._SL1500_.jpg");
+    p2.ajouterMorceau("Have Yourself a Merry Little Christmas", "Michael Bublé", "https://i.scdn.co/image/ab67616d0000b27395517befb15ad5d63af701ab");
     playlists.push(p2);
 
     let p3 = new Playlist("Summer 2023", "Max", "Pop", "https://i.scdn.co/image/ab67616d0000b273c8d8414189a18a0a57be2d6a");
-    p3.ajouterMorceau("Summer", "Calvin Harris");
-    p3.ajouterMorceau("Still Corners", "The Trip");
+    p3.ajouterMorceau("Summer", "Calvin Harris", "https://i1.sndcdn.com/artworks-000107381705-20q7wc-t500x500.jpg");
+    p3.ajouterMorceau("Still Corners", "The Trip", "https://media.pitchfork.com/photos/5929b15d9d034d5c69bf49eb/1:1/w_600/f9fa53b1.jpeg");
     playlists.push(p3);
 
     let p4 = new Playlist("Hip-Hop Picks", "Lulu", "Hip-Hop", "https://img.cdn-pictorem.com/uploads/collection/Q/QJ3CCL2SKM/900_DK-Artwork_asatronaut%20hiphop.jpg");
-    p4.ajouterMorceau("On Verra", "Nekfeu");
-    p4.ajouterMorceau("L'Homme de l'Ombre", "Georgio");
+    p4.ajouterMorceau("On Verra", "Nekfeu", "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71paemadIwL._SL1400_.jpg");
+    p4.ajouterMorceau("L'Homme de l'Ombre", "Georgio", "https://images.rapgenius.com/2au226lu2d0jcs04kojilo9ig.960x960x1.jpg");
     playlists.push(p4);
 
     let p5 = new Playlist("Sad life", "Gaby", "Rock", "https://ideas.ted.com/wp-content/uploads/sites/3/2021/11/FINAL_DepressionAndTrauma.jpg");
-    p5.ajouterMorceau("Hey Jude", "The Beatles");
-    p5.ajouterMorceau("Sweet Child O' Mine", "Guns N' Roses");
+    p5.ajouterMorceau("Hey Jude", "The Beatles", "https://upload.wikimedia.org/wikipedia/en/0/0a/Heyjudealbum.jpg");
+    p5.ajouterMorceau("Sweet Child O' Mine", "Guns N' Roses", "https://upload.wikimedia.org/wikipedia/en/1/15/Guns_N%27_Roses_-_Sweet_Child_o%27_Mine.png");
     playlists.push(p5);
 
     let p6 = new Playlist("Année 80", "Antho", "Electronic", "https://i1.sndcdn.com/artworks-000316645806-5bbme8-t500x500.jpg");
-    p6.ajouterMorceau("Get Lucky", "Daft Punk");
-    p6.ajouterMorceau("Midnight City", "M83");
+    p6.ajouterMorceau("Get Lucky", "Daft Punk", "https://upload.wikimedia.org/wikipedia/en/7/71/Get_Lucky.jpg");
+    p6.ajouterMorceau("Midnight City", "M83", "https://musikplease.com/wp-content/uploads/sites/17/2011/08/M83.jpeg");
+    p6.ajouterMorceau("Memories", "David Guetta", "https://i.discogs.com/jcR0VQLYH04S99oXFJ1trIZ8aPSE3ao0rITiR4xvLmE/rs:fit/g:sm/q:40/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI2OTA4/OTItMTI5ODQwMTQ3/NC5qcGVn.jpeg");
+    p6.ajouterMorceau("Da Funk", "Daft Punk", "https://albumart.publicradio.org/mb/00/00054665-89fa-33d5-a8f0-1728ea8c32c3_2c62.jpg");
     playlists.push(p6);
 
     res.json({ success: true });

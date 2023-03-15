@@ -2,6 +2,7 @@ import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
 import { IPlaylist } from '../models/playlist';
+import {IMorceauMusique} from "../models/morceau-musique";
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +46,11 @@ export class PlaylistListService {
     )
   }
 
-  getMorceauxByPlaylist(id:number) {
+  public ajouterMorceau(idPlaylist:number, titre:string, nomArtiste:string, urlCouverture:string){
+    return this.http.post(this.PLAYLIST_API_URL_HTTP+"ajoutermorceau",{idplaylist:idPlaylist, titre:titre, nomartiste:nomArtiste, urlcouverture:urlCouverture});
+  }
+
+  public getMorceauxByPlaylist(id:number) {
     let queryParams = new HttpParams().set("idPlaylist", id.toString());
     return this.http.get<IPlaylist>(this.PLAYLIST_API_URL_HTTP + "getmorceauxbyidplaylist/", {params:queryParams});
   }

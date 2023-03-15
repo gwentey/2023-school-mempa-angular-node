@@ -19,8 +19,8 @@ module.exports = class  Playlist{
     }
 
     //Pour ajouter un morceau
-    ajouterMorceau(titre, nomArtiste){
-        let m = new Morceau(titre, nomArtiste, this.idMorceaux);
+    ajouterMorceau(titre, nomArtiste, photoCouverture){
+        let m = new Morceau(titre, nomArtiste, this.idMorceaux, photoCouverture);
         this.listeMorceaux[this.idMorceaux] = m;
         this.idMorceaux++;
         return m;
