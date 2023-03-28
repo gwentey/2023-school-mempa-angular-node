@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {RouterModule} from "@angular/router";
-import {HttpClientModule} from "@angular/common/http";
+import { RouterModule } from "@angular/router";
+import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -13,20 +13,23 @@ import { CreerPlaylistComponent } from './creer-playlist/creer-playlist.componen
 import { PlaylistVoirComponent } from './playlist-voir/playlist-voir.component';
 import { PlaylistResolver } from './shared/guards/playlist.resolver';
 import { ConnexionComponent } from './connexion/connexion.component';
+import { ConnexionGuard } from './shared/guards/connexion.guard';
 
 
 const appRoutes = [
-  {path: '', 
-  component: AccueilComponent,
-  resolve: {
-    playlists: PlaylistResolver
-  }
+  {
+    path: 'connexion',
+    component: ConnexionComponent,
   },
-  {path: 'connexion', 
-  component: ConnexionComponent,
+  { path: 'creer', component: CreerPlaylistComponent, canActivate: [ConnexionGuard] },
+  { path: 'voir/:id', component: PlaylistVoirComponent, canActivate: [ConnexionGuard] },
+  {
+    path: '',
+    component: AccueilComponent,
+    resolve: {
+      playlists: PlaylistResolver
+    }, canActivate: [ConnexionGuard]
   },
-  {path: 'creer', component: CreerPlaylistComponent},
-  {path: 'voir/:id', component: PlaylistVoirComponent}
 ]
 
 @NgModule({
@@ -38,7 +41,7 @@ const appRoutes = [
     CreerPlaylistComponent,
     PlaylistVoirComponent,
     ConnexionComponent,
-    
+
   ],
   imports: [
     BrowserModule,

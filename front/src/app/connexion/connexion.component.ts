@@ -9,28 +9,29 @@ import { UsersService } from '../shared/services/users.service';
 })
 export class ConnexionComponent {
 
-  public pseudo:string = "";
-  public password:string = "";
+  public pseudo: string = "";
+  public password: string = "";
   public uneErreur: boolean = false;
 
-  constructor(private usersService : UsersService, private router:Router){}
+  constructor(private usersService: UsersService, private router: Router) { }
 
   seConnecter() {
-    this.usersService.seConnecter(this.pseudo, this.password).subscribe(
-      estConnectee => {
-        if (estConnectee) {
-          this.router.navigate(['']);
-        }
-      },
-      error => {
+    this.usersService.seConnecter(this.pseudo, this.password).subscribe({
+      next:
+        estConnectee => {
+          if (estConnectee) {
+            this.router.navigate(['']);
+          }
+        },
+      error: () => {
         this.uneErreur = true;
         this.pseudo = "";
         this.password = "";
       }
-    );
+    });
   }
-  
-  
+
+
 
 
 }

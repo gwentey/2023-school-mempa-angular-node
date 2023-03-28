@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, Subject, tap, throwError } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subject, tap, throwError } from 'rxjs';
 import { IUser } from '../models/user';
 
 @Injectable({
@@ -10,9 +10,11 @@ export class UsersService {
 
   private readonly PLAYLIST_API_URL_HTTP = "http://localhost:3000/";
 
-  public readonly estConnectee: Subject<boolean> = new Subject<boolean>();
 
   constructor(private http: HttpClient) { }
+
+
+public readonly estConnectee: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.utilisateurConnectee());
 
   // Stocker les informations utilisateur dans l'objet local
   seConnecter(pseudo: string, password: string): Observable<boolean> {
@@ -33,12 +35,16 @@ export class UsersService {
   getUser(): IUser {
     const currentUser = localStorage.getItem('utilisateurCourrant');
     return currentUser ? JSON.parse(currentUser) : null;
+  }
 
+
+  private utilisateurConnectee(): boolean {
+    return !!this.getUser();
   }
 
   // Déconnexion de l'utilisateur
   deconnexion(): void {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('utilisateurCourrant');
     this.estConnectee.next(false);
   }
 
