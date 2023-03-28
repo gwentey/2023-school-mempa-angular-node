@@ -54,7 +54,7 @@ export class CreerPlaylistComponent {
         console.log("to");
 
         this.playListService.creerPlayList(this.playListCreationForm.value.nomPlayList,
-          this.playListCreationForm.value.urlCouverture, this.playListCreationForm.value.nomCreateur,
+          this.playListCreationForm.value.urlCouverture,
           this.playListCreationForm.value.nomStyle).subscribe();
 
           this.router.navigateByUrl('');

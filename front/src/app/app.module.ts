@@ -12,6 +12,7 @@ import { PlaylistListComponent } from './shared/component/playlist-list/playlist
 import { CreerPlaylistComponent } from './creer-playlist/creer-playlist.component';
 import { PlaylistVoirComponent } from './playlist-voir/playlist-voir.component';
 import { PlaylistResolver } from './shared/guards/playlist.resolver';
+import { ConnexionComponent } from './connexion/connexion.component';
 
 
 const appRoutes = [
@@ -20,6 +21,9 @@ const appRoutes = [
   resolve: {
     playlists: PlaylistResolver
   }
+  },
+  {path: 'connexion', 
+  component: ConnexionComponent,
   },
   {path: 'creer', component: CreerPlaylistComponent},
   {path: 'voir/:id', component: PlaylistVoirComponent}
@@ -33,6 +37,7 @@ const appRoutes = [
     PlaylistListComponent,
     CreerPlaylistComponent,
     PlaylistVoirComponent,
+    ConnexionComponent,
     
   ],
   imports: [

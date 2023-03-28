@@ -4,6 +4,7 @@ import { catchError, map, Observable, tap, throwError } from 'rxjs';
 import { IPlaylist } from '../models/playlist';
 import {IMorceauMusique} from "../models/morceau-musique";
 import { IUser } from '../models/user';
+import { UsersService } from './users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class PlaylistListService {
   private readonly PLAYLIST_API_URL_HTTPS = "https://localhost:3000/";
   private readonly PLAYLIST_API_URL_HTTP = "http://localhost:3000/";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private UserService : UsersService) { }
 
 
   // permet d'obtenir la playlist associé à l'id
@@ -84,7 +85,7 @@ export class PlaylistListService {
     const playlist = {
       nomPlaylist: nomPlaylist,
       photoCouverture: photoCouverture,
-      nomCreateur: //ACCEDER A USER,
+      createur: this.UserService.getUser(),
       styleMusique: styleMusique
     }
 

@@ -8,6 +8,11 @@ const User = require('./user');
 let playlists = [];
 let users = [];
 
+// Création de l'utilisateur test (sans playlist)
+let uTest = new User("test", "test");
+users.push(uTest);
+
+
 
 // Système de variable d'environnement
 require('dotenv').config()
@@ -28,6 +33,24 @@ app.listen(3000, function () {
     console.log('Application lancée sur le port 3000!');
 });
 
+
+// Route pour tester la connexion des utilisateurs
+app.post('/connexion/', function (req, res) {
+    const { pseudo, password } = req.body;
+
+    // Vérifier si l'utilisateur existe dans le tableau d'utilisateurs
+    const user = users.find(u => u.pseudo === pseudo && u.password === password);
+    
+    if (user) {
+        // L'utilisateur existe, retourner les informations de l'utilisateur
+        res.status(200).json({ success: true, user });
+    } else {
+        // L'utilisateur n'existe pas, retourner une erreur
+        res.status(401).json({ success: false, message: 'Nom d\'utilisateur ou mot de passe incorrect. ' + req.body.pseudo + ' et ' + req.body.password});
+    }
+
+});
+
 // Route POST pour créer une playlist
 app.post('/creerplaylist/', function (req, res) {
 
@@ -41,7 +64,7 @@ app.post('/ajoutermorceau/', function (req, res) {
     // Vérification du passages des paramètres
     if (typeof req.body.idplaylist === 'undefined' ||
         typeof req.body.titre === 'undefined' ||
-        typeof req.body.nomartiste === 'undefined'||
+        typeof req.body.nomartiste === 'undefined' ||
         typeof req.body.urlcouverture === 'undefined') {
         res.status(400).json({ error: 'Il faut préciser les paramètres.' });
         return false;
@@ -139,13 +162,13 @@ app.get('/getmorceauxbyidplaylist', function (req, res) {
 
 app.get('/createtestvalues', function (req, res) {
 
-    let u0 = new User("antho","123");
+    let u0 = new User("antho", "123");
     users.push(u0);
 
-    let u1 = new User("lulu","123");
+    let u1 = new User("lulu", "123");
     users.push(u1);
 
-    let u2 = new User("max","123");
+    let u2 = new User("max", "123");
     users.push(u2);
 
     let p = new Playlist("Daily Mix", users[0], "French Rap", "https://static.fnac-static.com/multimedia/Images/FR/NR/fb/15/d2/13768187/1540-1/tsp20210831115225/Montagnes-Rues.jpg");

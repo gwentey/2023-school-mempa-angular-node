@@ -1,7 +1,9 @@
 <div class="container content-app background-color min-vh-100">
 
 <div class="d-flex justify-content-center mb-5">
-<app-navbar></app-navbar>
+
+<app-navbar *ngIf="estConnectee"></app-navbar>
+
 </div>
 
 <router-outlet></router-outlet>
