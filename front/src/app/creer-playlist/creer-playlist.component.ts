@@ -27,15 +27,7 @@ export class CreerPlaylistComponent {
           Validators.maxLength(15)
         ]
       ],
-      urlCouverture: ['', Validators.required],
-      nomCreateur: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(1),
-          Validators.maxLength(15)
-        ]
-      ], nomStyle: [
+      urlCouverture: ['', Validators.required], nomStyle: [
         '',
         [
           Validators.required,
@@ -51,7 +43,6 @@ export class CreerPlaylistComponent {
 
     if (this.playListCreationForm.valid) {
       if (this.playListCreationForm.dirty) {
-        console.log("to");
 
         this.playListService.creerPlayList(this.playListCreationForm.value.nomPlayList,
           this.playListCreationForm.value.urlCouverture,
