@@ -21,7 +21,8 @@ public readonly estConnectee: BehaviorSubject<boolean> = new BehaviorSubject<boo
     return this.http.post<any>(this.PLAYLIST_API_URL_HTTP + "connexion", { pseudo, password }).pipe(
       tap(response => {
         if (response.success) {
-          localStorage.setItem('utilisateurCourrant', JSON.stringify({ pseudo, password }));
+          console.log(response)
+          localStorage.setItem('utilisateurCourrant', JSON.stringify({ id: response.user.id, pseudo, password }));
           this.estConnectee.next(true);
         } else {
           this.estConnectee.next(false);

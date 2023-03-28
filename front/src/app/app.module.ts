@@ -14,6 +14,7 @@ import { PlaylistVoirComponent } from './playlist-voir/playlist-voir.component';
 import { PlaylistResolver } from './shared/guards/playlist.resolver';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { ConnexionGuard } from './shared/guards/connexion.guard';
+import { MonCompteComponent } from './mon-compte/mon-compte.component';
 
 
 const appRoutes = [
@@ -22,6 +23,8 @@ const appRoutes = [
     component: ConnexionComponent,
   },
   { path: 'creer', component: CreerPlaylistComponent, canActivate: [ConnexionGuard] },
+  { path: 'monCompte', component: MonCompteComponent, canActivate: [ConnexionGuard] },
+
   { path: 'voir/:id', component: PlaylistVoirComponent, canActivate: [ConnexionGuard] },
   {
     path: '',
@@ -41,6 +44,7 @@ const appRoutes = [
     CreerPlaylistComponent,
     PlaylistVoirComponent,
     ConnexionComponent,
+    MonCompteComponent,
 
   ],
   imports: [

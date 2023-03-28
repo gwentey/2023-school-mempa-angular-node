@@ -20,6 +20,14 @@ export class PlaylistListService {
 
   constructor(private http: HttpClient, private UserService : UsersService) { }
 
+ // permet d'obtenir les playlists d'un utilisateurs en fonction de son id
+  public getPlaylistsByUserId(userId: number): Observable<IPlaylist[]> {
+    return this.http.post<IPlaylist[]>(this.PLAYLIST_API_URL_HTTP + 'getplaylistsbyuserid', { userId: userId })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
 
   // permet d'obtenir la playlist associé à l'id
   public getPlayListById(id : Number) : Observable<IPlaylist> {
