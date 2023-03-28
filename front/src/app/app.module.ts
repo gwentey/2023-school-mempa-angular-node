@@ -11,11 +11,15 @@ import { NavbarComponent } from './shared/component/navbar/navbar.component';
 import { PlaylistListComponent } from './shared/component/playlist-list/playlist-list.component';
 import { CreerPlaylistComponent } from './creer-playlist/creer-playlist.component';
 import { PlaylistVoirComponent } from './playlist-voir/playlist-voir.component';
+import { PlaylistResolver } from './shared/guards/playlist.resolver';
 
 
 const appRoutes = [
   {path: '', 
   component: AccueilComponent,
+  resolve: {
+    playlists: PlaylistResolver
+  }
   },
   {path: 'creer', component: CreerPlaylistComponent},
   {path: 'voir/:id', component: PlaylistVoirComponent}

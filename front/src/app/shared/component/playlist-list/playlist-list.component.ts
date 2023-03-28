@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { IPlaylist } from '../../models/playlist';
 import { PlaylistListService } from '../../services/playlist-list.service';
 
@@ -12,11 +13,14 @@ export class PlaylistListComponent {
   public listePlaylist: IPlaylist[] = [];
   private _playlistFilter: string = '';
   public filteredListePlaylist: IPlaylist[] = [];
-  private dernierTrierFait: string = '';
+  public dernierTrierFait: string = '';
 
-  constructor(private playlistListService: PlaylistListService) { }
+  constructor(private playlistListService: PlaylistListService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    this.listePlaylist = this.route.snapshot.data['playlists'];
+
     // récupération des playlists à partir du service injecté dans le constructeur
     this.playlistListService.getPlaylist().subscribe({
       next: lesPlaylists => {
@@ -24,12 +28,16 @@ export class PlaylistListComponent {
         if (lesPlaylists.length === 0) {
           this.playlistListService.creerTests().subscribe();
           this.playlistListService.getPlaylist().subscribe({
-            next: lesPlaylists => this.listePlaylist = lesPlaylists,
+            next: lesPlaylistsF => {
+              this.listePlaylist = lesPlaylistsF,
+              this.playlistFilter = lesPlaylistsF;
+            }
           });
         } else {
           this.listePlaylist = lesPlaylists;
           this.filteredListePlaylist = this.listePlaylist;
         }
+
       },
       error: err => { console.log("Erreur : " + err) }
     })
