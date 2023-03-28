@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PlaylistListService } from '../shared/services/playlist-list.service';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
+import { IUser } from '../shared/models/user';
 
 @Component({
   selector: 'app-playlist-voir',
@@ -14,16 +15,24 @@ import { Router } from '@angular/router';
 })
 export class PlaylistVoirComponent implements OnInit {
 
+  public createur: IUser = {
+    id: 0,
+    pseudo: "",
+    password: ""
+  };
+
   public playlist: IPlaylist = {
     idPlaylist: 0,
     nomPlaylist: "",
     photoCouverture: "",
-    nomCreateur: "",
+    createur: this.createur,
     nombreClics: 0,
     contributeurs: [],
     styleMusique: "",
     morceauMusiqueListe: []
   };
+
+
   musiqueAjoutForm!: FormGroup;
   modifierPlaylist!: FormGroup;
 

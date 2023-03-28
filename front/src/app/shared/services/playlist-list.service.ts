@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
 import { IPlaylist } from '../models/playlist';
 import {IMorceauMusique} from "../models/morceau-musique";
+import { IUser } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class PlaylistListService {
           idPlaylist: json.idPlaylist,
           nomPlaylist: json.nomPlaylist,
           photoCouverture: json.photoCouverture,
-          nomCreateur: json.nomCreateur,
+          createur: json.createur,
           nombreClics: json.nombreClics,
           contributeurs: json.nomsContributeurs,
           styleMusique: json.styleMusique,
@@ -78,12 +79,12 @@ export class PlaylistListService {
   }
 
   public creerPlayList(nomPlaylist: String, photoCouverture: String,
-    nomCreateur: String, styleMusique: String,): Observable<IPlaylist> {
+     styleMusique: String,): Observable<IPlaylist> {
 
     const playlist = {
       nomPlaylist: nomPlaylist,
       photoCouverture: photoCouverture,
-      nomCreateur: nomCreateur,
+      nomCreateur: //ACCEDER A USER,
       styleMusique: styleMusique
     }
 
