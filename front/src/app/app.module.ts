@@ -19,19 +19,12 @@ import { MonCompteComponent } from './mon-compte/mon-compte.component';
 
 const appRoutes = [
   {
-    path: 'connexion',
-    component: ConnexionComponent,
+    path: 'connexion', component: ConnexionComponent,
   },
   { path: 'creer', component: CreerPlaylistComponent, canActivate: [ConnexionGuard] },
   { path: 'monCompte', component: MonCompteComponent, canActivate: [ConnexionGuard] },
-
   { path: 'voir/:id', component: PlaylistVoirComponent, canActivate: [ConnexionGuard] },
-  {
-    path: '',
-    component: AccueilComponent,
-    resolve: {
-      playlists: PlaylistResolver
-    }, canActivate: [ConnexionGuard]
+  { path: '', component: AccueilComponent,resolve: { playlists: PlaylistResolver}, canActivate: [ConnexionGuard]
   },
 ]
 

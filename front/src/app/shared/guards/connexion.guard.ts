@@ -11,9 +11,7 @@ export class ConnexionGuard implements CanActivate {
 
   constructor(private usersService: UsersService, private router: Router) { }
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate(): Observable<boolean | UrlTree> {
     return this.usersService.estConnectee.asObservable().pipe(
       map((estConnectee: boolean) => {
         return estConnectee ? true : this.router.parseUrl('/connexion');
